@@ -1,0 +1,34 @@
+[
+  {
+    "title": "HackTheBox - Máquina X",
+    "date": "2025-06",
+    "tags": ["Linux", "Privilege Escalation"],
+    "difficulty": "Medium",
+    "platform": "HackTheBox",
+    "file": "writeups/htb-maquina-x.pdf"
+  },
+  {
+    "title": "TryHackMe - RootMe",
+    "date": "2025-05",
+    "tags": ["Web", "Reverse Shell"],
+    "difficulty": "Easy",
+    "platform": "TryHackMe",
+    "file": "writeups/thm-rootme.pdf"
+  },
+  {
+    "title": "VulnHub - Kioptrix Level 1",
+    "date": "2025-04",
+    "tags": ["Linux", "Buffer Overflow"],
+    "difficulty": "Easy",
+    "platform": "VulnHub",
+    "file": "writeups/vulnhub-kioptrix1.pdf"
+  },
+  {
+    "title": "HackTheBox - Active Directory Lab",
+    "date": "2025-03",
+    "tags": ["Windows", "Active Directory", "Kerberoasting"],
+    "difficulty": "Hard",
+    "platform": "HackTheBox",
+    "file": "writeups/htb-ad-lab.pdf"
+  }
+]
