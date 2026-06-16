@@ -3,7 +3,7 @@
 import SectionWrapper from "../components/SectionWrapper";
 import SectionHeader from "../components/SectionHeader";
 import { buttonVariants } from "@/components/ui/button";
-import { Mail, Globe, Download, Code } from "lucide-react";
+import { Mail, Globe, Download, Code, ArrowUp, Skull } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { SlideUp, StaggerContainer, StaggerItem } from "../components/animations";
@@ -31,7 +31,7 @@ export default function Contact() {
           <StaggerContainer className="flex flex-col gap-3" staggerDelay={0.1} delayChildren={0.2}>
             <StaggerItem>
               <motion.a
-                href="mailto:tu@email.com"
+                href="mailto:germain.gg90@gmail.com"
                 whileHover={{ scale: 1.02, x: 4 }}
                 whileTap={{ scale: 0.98 }}
                 className={cn(
@@ -40,12 +40,12 @@ export default function Contact() {
                 )}
               >
                 <Mail className="size-4" />
-                tu@email.com
+                germain.gg90@gmail.com
               </motion.a>
             </StaggerItem>
             <StaggerItem>
               <motion.a
-                href="https://linkedin.com/in/tuusuario"
+                href="https://www.linkedin.com/in/gergg90/"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02, x: 4 }}
@@ -61,7 +61,7 @@ export default function Contact() {
             </StaggerItem>
             <StaggerItem>
               <motion.a
-                href="https://github.com/tuusuario"
+                href="https://github.com/gergg90"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02, x: 4 }}
@@ -93,14 +93,44 @@ export default function Contact() {
           </StaggerContainer>
         </div>
 
+        {/* Footer CTA - YOU HAVE BEEN PWNED! */}
         <SlideUp delay={0.3}>
-          <div className="mt-12 flex flex-col items-center gap-2 border-t border-border/50 pt-8">
-            <p className="font-mono text-xs text-muted-foreground">
-              &copy; {new Date().getFullYear()} TuNombre. Todos los derechos reservados.
-            </p>
-            <p className="font-mono text-xs text-muted-foreground/60">
-              Hecho con Next.js + shadcn/ui + Framer Motion
-            </p>
+          <div className="mt-16 flex flex-col items-center gap-6">
+            {/* Línea divisora con glow */}
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+            
+            {/* CTA Pwned */}
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="relative rounded-xl border border-primary/30 bg-card/30 px-8 py-6 backdrop-blur-sm"
+              style={{ boxShadow: '0 0 30px rgba(0, 255, 65, 0.1), 0 0 60px rgba(0, 255, 65, 0.05)' }}
+            >
+              <div className="flex flex-col items-center gap-3">
+                <div className="flex items-center gap-3 text-primary">
+                  <Skull className="size-5" />
+                  <span className="font-mono text-sm uppercase tracking-widest text-primary/80">
+                    you have been pwned!
+                  </span>
+                  <Skull className="size-5" />
+                </div>
+                <a 
+                  href="mailto:germain.gg90@gmail.com"
+                  className="font-mono text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  germain.gg90@gmail.com
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Volver al inicio */}
+            <motion.a
+              href="#inicio"
+              whileHover={{ y: -2 }}
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              <ArrowUp className="size-4" />
+              Volver al Inicio
+            </motion.a>
           </div>
         </SlideUp>
       </div>
