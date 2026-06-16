@@ -22,6 +22,14 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
+      // Detectar si estamos al final de la página
+      const isAtBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 10;
+      
+      if (isAtBottom) {
+        setActiveSection("contacto");
+        return;
+      }
+
       const sections = navLinks.map((l) => l.href.slice(1));
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);
