@@ -1,10 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import SectionWrapper from "../components/SectionWrapper";
 import SectionHeader from "../components/SectionHeader";
 import { Badge } from "@/components/ui/badge";
-import { Award, Calendar, ExternalLink, GraduationCap, FileText } from "lucide-react";
+import { Award, Calendar, ExternalLink, GraduationCap, ZoomIn } from "lucide-react";
 import { StaggerContainer, StaggerItem } from "../components/animations";
+import ImageModal from "../components/ImageModal";
+import { motion } from "framer-motion";
 
 const certifications = [
   {
@@ -58,7 +61,28 @@ const certifications = [
   },
 ];
 
+// Diplomas de la Academia Hack4u
+const diplomas = [
+  {
+    filename: "archlinux.jpg",
+    title: "Arch Linux",
+    image: "/certificados/archlinux.jpg",
+  },
+  {
+    filename: "introduccion_al_hacking.jpg",
+    title: "Introducción al Hacking",
+    image: "/certificados/introduccion_al_hacking.jpg",
+  },
+  {
+    filename: "personalizacion_linux.jpg",
+    title: "Personalización Linux",
+    image: "/certificados/personalizacion_linux.jpg",
+  },
+];
+
 export default function Certifications() {
+  const [selectedImage, setSelectedImage] = useState<{ src: string; title: string } | null>(null);
+
   return (
     <SectionWrapper id="certificaciones" className="bg-secondary/30">
       <div className="flex flex-col gap-8">
@@ -120,24 +144,73 @@ export default function Certifications() {
           </StaggerContainer>
         </div>
 
-        {/* Certificados PDF adicionales */}
+        {/* Diplomas de la Academia Hack4u */}
         <div>
           <SectionHeader 
-            title="Certificados" 
-            subtitle="Certificados adicionales en formato PDF disponibles para descarga."
+            title="Diplomas" 
+            subtitle="Diplomas obtenidos en la Academia Hack4u de Marcelo Vázquez (S4vitar)."
           />
 
-          <div className="flex flex-col gap-4 sm:flex-row items-center justify-center p-8 rounded-xl border border-dashed border-border/50 bg-card/30">
-            <div className="flex items-center gap-3 text-muted-foreground">
-              <FileText className="size-6 text-primary/50" />
-              <div className="flex flex-col">
-                <span className="text-sm font-medium">Certificados PDF</span>
-                <span className="text-xs">Sube tus certificados escaneados a la carpeta <code className="text-primary">/public/certificados/</code></span>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {diplomas.map((diploma, index) => (
+              <motion.div
+                key={diploma.filename}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group relative rounded-xl border border-border/50 bg-card/50 overflow-hidden backdrop-blur-sm card-hover cursor-pointer"
+                onClick={() => setSelectedImage({ src: diploma.image, title: diploma.title })}
+              >
+                {/* Imagen del diploma */}
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src={diploma.image}
+                    alt={diploma.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  {/* Overlay al hover */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center gap-2">
+                      <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/20 backdrop-blur-sm">
+                        <ZoomIn className="size-6 text-primary" />
+                      </div>
+                      <span className="text-sm font-medium text-white">Ver diploma</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Info del diploma */}
+                <div className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-col">
+                      <h3 className="font-semibold text-foreground text-sm">
+                        {diploma.title}
+                      </h3>
+                      <span className="text-xs text-muted-foreground">
+                        Academia Hack4u
+                      </span>
+                    </div>
+                    {/* Badge HACK4U */}
+                    <span className="inline-flex items-center rounded-full bg-destructive/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-destructive">
+                      HACK4U
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
+
+      {/* Modal/Lightbox */}
+      <ImageModal
+        isOpen={!!selectedImage}
+        onClose={() => setSelectedImage(null)}
+        src={selectedImage?.src || ""}
+        alt={selectedImage?.title || ""}
+        title={selectedImage?.title || ""}
+      />
     </SectionWrapper>
   );
 }
