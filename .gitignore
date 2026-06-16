@@ -49,5 +49,4 @@ skills-lock.json
 # Testing tools output
 testsprite_tests/
 
-# Local docs (CVs, personal files)
-/docs/
+# Keep docs/ for CV and downloadable files

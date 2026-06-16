@@ -10,11 +10,11 @@ import { SlideUp, StaggerContainer, StaggerItem } from "../components/animations
 
 export default function Contact() {
   return (
-    <SectionWrapper id="contact" className="bg-secondary/30">
+    <SectionWrapper id="contacto" className="bg-secondary/30">
       <div className="flex flex-col gap-6">
         <SectionHeader 
-          title="Contact" 
-          subtitle="Let's talk about cybersecurity, collaborations, or new challenges."
+          title="Contacto" 
+          subtitle="Hablemos de ciberseguridad, colaboraciones o nuevos retos."
         />
 
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
@@ -77,7 +77,7 @@ export default function Contact() {
             </StaggerItem>
             <StaggerItem>
               <motion.a
-                href="/docs/CV_NombreApellido.pdf"
+                href="/docs/CV.pdf"
                 download
                 whileHover={{ scale: 1.02, x: 4 }}
                 whileTap={{ scale: 0.98 }}
@@ -96,10 +96,10 @@ export default function Contact() {
         <SlideUp delay={0.3}>
           <div className="mt-12 flex flex-col items-center gap-2 border-t border-border/50 pt-8">
             <p className="font-mono text-xs text-muted-foreground">
-              &copy; {new Date().getFullYear()} TuNombre. All rights reserved.
+              &copy; {new Date().getFullYear()} TuNombre. Todos los derechos reservados.
             </p>
             <p className="font-mono text-xs text-muted-foreground/60">
-              Built with Next.js + shadcn/ui + Framer Motion
+              Hecho con Next.js + shadcn/ui + Framer Motion
             </p>
           </div>
         </SlideUp>

@@ -16,11 +16,11 @@ const skills = [
 
 export default function Skills() {
   return (
-    <SectionWrapper id="skills">
+    <SectionWrapper id="habilidades">
       <div className="flex flex-col gap-6">
         <SectionHeader 
-          title="Skills" 
-          subtitle="Technologies and tools I work with on a daily basis."
+          title="Habilidades" 
+          subtitle="Tecnologías y herramientas con las que trabajo a diario."
         />
 
         <StaggerContainer className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" staggerDelay={0.08}>

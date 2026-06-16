@@ -6,11 +6,11 @@ import { SlideUp } from "../components/animations";
 
 export default function About() {
   return (
-    <SectionWrapper id="about" className="bg-secondary/30">
+    <SectionWrapper id="sobre-mi" className="bg-secondary/30">
       <div className="flex flex-col gap-6">
         <SectionHeader 
-          title="About" 
-          subtitle="Passionate about cybersecurity, always learning and breaking things (ethically)."
+          title="Sobre Mí" 
+          subtitle="Apasionado por la ciberseguridad, siempre aprendiendo y rompiendo cosas (éticamente)."
         />
 
         <div className="max-w-3xl">

@@ -5,18 +5,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Terminal, Menu, X } from "lucide-react";
 
 const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#certs", label: "Certs" },
+  { href: "#inicio", label: "Inicio" },
+  { href: "#sobre-mi", label: "Sobre Mí" },
+  { href: "#habilidades", label: "Habilidades" },
+  { href: "#certificaciones", label: "Certificaciones" },
   { href: "#writeups", label: "Writeups" },
-  { href: "#contact", label: "Contact" },
+  { href: "#contacto", label: "Contacto" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [activeSection, setActiveSection] = useState("inicio");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,7 +52,7 @@ export default function Navbar() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <a
-          href="#home"
+          href="#inicio"
           className="flex items-center gap-2 font-mono text-lg font-semibold text-primary electric-text"
         >
           <Terminal className="size-5" />
