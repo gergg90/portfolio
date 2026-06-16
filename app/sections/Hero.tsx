@@ -106,7 +106,7 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.3, duration: 0.6 }}
         className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-muted-foreground hover:text-primary transition-colors"
-        aria-label="Scroll to sobre mi section"
+        aria-label="Desplazarse a la sección Sobre Mí"
       >
         <ChevronDown className="size-8 animate-bounce" />
       </motion.a>

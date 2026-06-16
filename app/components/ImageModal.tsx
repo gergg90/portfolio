@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ZoomIn } from "lucide-react";
+import { X } from "lucide-react";
 
 interface ImageModalProps {
   isOpen: boolean;
@@ -38,6 +39,9 @@ export default function ImageModal({ isOpen, onClose, src, alt, title }: ImageMo
           transition={{ duration: 0.3 }}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm"
           onClick={onClose}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Vista ampliada de ${title}`}
         >
           {/* Botón cerrar */}
           <motion.button
@@ -46,6 +50,7 @@ export default function ImageModal({ isOpen, onClose, src, alt, title }: ImageMo
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ delay: 0.1 }}
             onClick={onClose}
+            aria-label="Cerrar imagen ampliada"
             className="absolute top-6 right-6 z-10 flex items-center gap-2 rounded-full bg-card/80 px-4 py-2 text-sm text-muted-foreground hover:text-primary transition-colors border border-border/50"
           >
             <X className="size-4" />
@@ -61,11 +66,14 @@ export default function ImageModal({ isOpen, onClose, src, alt, title }: ImageMo
             className="relative max-w-[90vw] max-h-[85vh] mx-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <img
+            <Image
               src={src}
               alt={alt}
+              width={1200}
+              height={900}
               className="max-w-full max-h-[85vh] object-contain rounded-lg border border-border/50"
               style={{ boxShadow: "0 0 60px rgba(0, 255, 65, 0.15)" }}
+              priority
             />
             
             {/* Título debajo de la imagen */}

@@ -92,7 +92,8 @@ export default function Navbar() {
         <button
           className="md:hidden text-foreground"
           onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
+          aria-label={mobileOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
+          aria-expanded={mobileOpen}
         >
           {mobileOpen ? <X className="size-6" /> : <Menu className="size-6" />}
         </button>
