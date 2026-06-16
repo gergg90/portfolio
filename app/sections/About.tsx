@@ -10,24 +10,29 @@ export default function About() {
       <div className="flex flex-col gap-6">
         <SectionHeader 
           title="Sobre Mí" 
-          subtitle="Apasionado por la ciberseguridad, siempre aprendiendo y rompiendo cosas (éticamente)."
+          subtitle="Profesional en formación especializado en hacking ético y pruebas de penetración."
         />
 
         <div className="max-w-3xl">
           <SlideUp delay={0.1}>
             <p className="text-lg leading-relaxed text-muted-foreground">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-              ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat.
+              Profesional en formación especializado en hacking ético y pruebas de penetración, con sólidos 
+              conocimientos en reconocimiento, explotación de vulnerabilidades, escalada de privilegios y 
+              elaboración de informes.
             </p>
           </SlideUp>
           <SlideUp delay={0.2}>
             <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-              Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-              cupidatat non proident, sunt in culpa qui officia deserunt mollit
-              anim id est laborum.
+              Experiencia práctica demostrada mediante la resolución de más de 20 máquinas en plataformas CTF 
+              (Hack The Box, VulnHub) cubriendo técnicas como OWASP Top 10, buffer overflow, escalada de 
+              privilegios y post-explotación, complementada con proyectos personales de seguridad ofensiva 
+              y defensiva.
+            </p>
+          </SlideUp>
+          <SlideUp delay={0.3}>
+            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+              Comprometido con el aprendizaje continuo y la aplicación ética de las técnicas de ataque para 
+              fortalecer la postura de seguridad de las organizaciones.
             </p>
           </SlideUp>
         </div>

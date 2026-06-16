@@ -6,12 +6,30 @@ import { Badge } from "@/components/ui/badge";
 import { StaggerContainer, StaggerItem } from "../components/animations";
 
 const skills = [
-  { category: "Sistemas", items: ["Linux", "Windows", "Active Directory", "Bash"] },
-  { category: "Redes", items: ["TCP/IP", "Wireshark", "Nmap", "Burp Suite"] },
-  { category: "Web", items: ["OWASP Top 10", "SQL Injection", "XSS", "SSRF"] },
-  { category: "Programación", items: ["Python", "Go", "JavaScript", "PowerShell"] },
-  { category: "Forense", items: ["Autopsy", "Volatility", "OSINT", "Malware Analysis"] },
-  { category: "Cloud", items: ["AWS", "Azure", "Docker", "Kubernetes"] },
+  { 
+    category: "Herramientas Ofensivas", 
+    items: ["Metasploit Framework", "Burp Suite", "Nmap", "Hydra", "Wireshark", "Ghidra", "SpiderFoot", "Searchsploit"] 
+  },
+  { 
+    category: "Técnicas de Pentesting", 
+    items: ["Reconocimiento pasivo/activo", "OSINT", "OWASP Top 10", "SQLi", "XSS", "LFI/RFI", "SSRF", "XXE", "IDOR", "RCE", "Buffer Overflow (x86)", "Escalada de Privilegios"] 
+  },
+  { 
+    category: "Scripting & Automatización", 
+    items: ["Python (ofensivo)", "Bash scripting", "Automatización de recolección"] 
+  },
+  { 
+    category: "Redes & Protocolos", 
+    items: ["TCP/IP", "HTTP/HTTPS", "FTP/SFTP", "SMTP", "DNS", "DHCP", "SNMP", "BGP", "OSPF", "EIGRP", "RIP", "Cisco IOS"] 
+  },
+  { 
+    category: "Seguridad Defensiva", 
+    items: ["Wazuh", "Caldera (MITRE ATT&CK)", "Monitorización de logs", "Detección de tráfico"] 
+  },
+  { 
+    category: "Sistemas Operativos", 
+    items: ["Parrot Security OS", "Kali Linux", "GNU/Linux", "Administración Linux", "Docker", "Contenedores"] 
+  },
 ];
 
 export default function Skills() {
@@ -20,7 +38,7 @@ export default function Skills() {
       <div className="flex flex-col gap-6">
         <SectionHeader 
           title="Habilidades" 
-          subtitle="Tecnologías y herramientas con las que trabajo a diario."
+          subtitle="Habilidades técnicas y herramientas que domino en el área de ciberseguridad ofensiva y defensiva."
         />
 
         <StaggerContainer className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" staggerDelay={0.08}>
