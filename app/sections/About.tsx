@@ -10,7 +10,7 @@ export default function About() {
       <div className="flex flex-col gap-6">
         <SectionHeader 
           title="Sobre Mí" 
-          subtitle="Profesional en formación especializado en hacking ético y pruebas de penetración."
+          subtitle="Apasionado por la ciberseguridad ofensiva y el aprendizaje continuo."
         />
 
         <div className="max-w-3xl">
