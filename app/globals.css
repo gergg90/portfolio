@@ -55,7 +55,7 @@
   --card-foreground: #e6edf3;
   --popover: #161b22;
   --popover-foreground: #e6edf3;
-  --primary: #00ff41;
+  --primary: #9D4EDD;
   --primary-foreground: #000000;
   --secondary: #161b22;
   --secondary-foreground: #e6edf3;
@@ -66,8 +66,8 @@
   --destructive: #ff003c;
   --border: #30363d;
   --input: #30363d;
-  --ring: #00ff41;
-  --chart-1: #00ff41;
+  --ring: #9D4EDD;
+  --chart-1: #9D4EDD;
   --chart-2: #00ffff;
   --chart-3: #ff003c;
   --chart-4: #8b949e;
@@ -75,12 +75,12 @@
   --radius: 0.625rem;
   --sidebar: #000000;
   --sidebar-foreground: #e6edf3;
-  --sidebar-primary: #00ff41;
+  --sidebar-primary: #9D4EDD;
   --sidebar-primary-foreground: #000000;
   --sidebar-accent: #161b22;
   --sidebar-accent-foreground: #e6edf3;
   --sidebar-border: #30363d;
-  --sidebar-ring: #00ff41;
+  --sidebar-ring: #9D4EDD;
 }
 
 @layer base {
@@ -99,25 +99,42 @@
 }
 
 @layer utilities {
-  .text-gradient {
-    background: linear-gradient(270deg, #00ff41 40%, #00ffff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .text-purple-glow {
+    color: #C77DFF;
+    text-shadow:
+      0 0 10px rgba(157, 78, 221, 0.8),
+      0 0 20px rgba(157, 78, 221, 0.5),
+      0 0 40px rgba(157, 78, 221, 0.3);
+    animation: pulse-purple 3s ease-in-out infinite;
   }
-  
+
+  @keyframes pulse-purple {
+    0%, 100% {
+      text-shadow:
+        0 0 10px rgba(157, 78, 221, 0.8),
+        0 0 20px rgba(157, 78, 221, 0.5),
+        0 0 40px rgba(157, 78, 221, 0.3);
+    }
+    50% {
+      text-shadow:
+        0 0 20px rgba(157, 78, 221, 1),
+        0 0 40px rgba(157, 78, 221, 0.7),
+        0 0 70px rgba(157, 78, 221, 0.5);
+    }
+  }
+
   .text-glow {
-    text-shadow: 0 0 20px rgba(0, 255, 65, 0.5),
-                 0 0 40px rgba(0, 255, 65, 0.3);
+    text-shadow: 0 0 20px rgba(157, 78, 221, 0.5),
+                 0 0 40px rgba(157, 78, 221, 0.3);
   }
-  
+
   .border-glow {
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.3),
-                0 0 40px rgba(0, 255, 65, 0.1);
+    box-shadow: 0 0 20px rgba(157, 78, 221, 0.3),
+                0 0 40px rgba(157, 78, 221, 0.1);
   }
-  
+
   .hero-glow {
-    background: radial-gradient(circle at 50% 140%, rgba(0, 255, 65, 0.12) 17%, transparent 55%);
+    background: radial-gradient(circle at 50% 140%, rgba(157, 78, 221, 0.12) 17%, transparent 55%);
   }
   
   .transition-premium {
@@ -131,8 +148,8 @@
   .card-hover:hover {
     transform: translateY(-4px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5),
-                0 0 20px rgba(0, 255, 65, 0.15);
-    border-color: rgba(0, 255, 65, 0.3);
+                0 0 20px rgba(157, 78, 221, 0.2);
+    border-color: rgba(157, 78, 221, 0.4);
   }
   
   .backdrop-blur-nav {
@@ -180,10 +197,12 @@
   }
   
   .text-gradient-cpts {
-    background: linear-gradient(270deg, #C77DFF 0%, #9D4EDD 50%, #00ff41 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #C77DFF;
+    text-shadow:
+      0 0 10px rgba(157, 78, 221, 0.8),
+      0 0 20px rgba(157, 78, 221, 0.5),
+      0 0 40px rgba(157, 78, 221, 0.3);
+    animation: pulse-purple 3s ease-in-out infinite;
   }
   
   .neon-text {
@@ -193,15 +212,15 @@
   }
   
   .electric-text {
-    color: #00ff41;
-    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5),
-                 0 0 20px rgba(0, 255, 65, 0.3);
+    color: #C77DFF;
+    text-shadow: 0 0 10px rgba(157, 78, 221, 0.5),
+                 0 0 20px rgba(157, 78, 221, 0.3);
   }
-  
+
   .avatar-glow {
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.4),
-                0 0 40px rgba(0, 255, 65, 0.2),
-                0 0 60px rgba(0, 255, 65, 0.1);
+    box-shadow: 0 0 20px rgba(157, 78, 221, 0.4),
+                0 0 40px rgba(157, 78, 221, 0.2),
+                0 0 60px rgba(157, 78, 221, 0.1);
   }
   
   .scan-line {
@@ -226,9 +245,9 @@
   }
   
   .matrix-bg {
-    background-image: 
-      linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+    background-image:
+      linear-gradient(rgba(157, 78, 221, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(157, 78, 221, 0.04) 1px, transparent 1px);
     background-size: 40px 40px;
   }
 }

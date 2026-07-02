@@ -72,7 +72,7 @@ export default function ImageModal({ isOpen, onClose, src, alt, title }: ImageMo
               width={1200}
               height={900}
               className="max-w-full max-h-[85vh] object-contain rounded-lg border border-border/50"
-              style={{ boxShadow: "0 0 60px rgba(0, 255, 65, 0.15)" }}
+              style={{ boxShadow: "0 0 60px rgba(157, 78, 221, 0.2)" }}
               priority
             />
             

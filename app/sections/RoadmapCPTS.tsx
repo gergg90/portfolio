@@ -67,7 +67,7 @@ export default function RoadmapCPTS() {
           <SectionHeader
             title="Roadmap CPTS"
             subtitle="Mi camino hacia la certificación HTB Certified Penetration Testing Specialist."
-            titleClassName="text-gradient-cpts"
+            titleClassName="text-purple-glow"
           />
 
           {/* Barra de progreso e info */}

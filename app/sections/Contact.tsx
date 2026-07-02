@@ -103,7 +103,7 @@ export default function Contact() {
             <motion.div
               whileHover={{ scale: 1.02 }}
               className="relative rounded-xl border border-primary/30 bg-card/30 px-8 py-6 backdrop-blur-sm"
-              style={{ boxShadow: '0 0 30px rgba(0, 255, 65, 0.1), 0 0 60px rgba(0, 255, 65, 0.05)' }}
+              style={{ boxShadow: '0 0 30px rgba(157, 78, 221, 0.15), 0 0 60px rgba(157, 78, 221, 0.08)' }}
             >
               <div className="flex flex-col items-center gap-3">
                 <div className="flex items-center gap-3 text-primary">

@@ -142,7 +142,9 @@ portfolio/
 
 | Color | Hex | Uso |
 |-------|-----|-----|
-| Verde Matrix | `#00ff41` | Primary |
+| Morado CPTS | `#9D4EDD` | Primary |
+| Morado brillante | `#C77DFF` | Glows / Highlights |
+| Verde Matrix | `#00ff41` | Accents / Details |
 | Cyan | `#00ffff` | Accent |
 | Negro | `#000000` | Background |
 | Gris oscuro | `#161b22` | Cards |
