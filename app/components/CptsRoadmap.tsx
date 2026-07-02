@@ -357,8 +357,8 @@ export default function CptsRoadmap({
       >
         <div className="hidden flex-1 md:block md:max-w-[calc(50%-2rem)]" />
         <div className="absolute left-8 z-20 -translate-x-1/2 md:left-1/2 md:-translate-x-1/2">
-          <div className="flex size-10 items-center justify-center rounded-full border-2 border-[#00ff41] bg-background shadow-[0_0_0_4px_#000000,0_0_20px_rgba(0,255,65,0.6)]">
-            <Play className="size-4 fill-[#00ff41] text-[#00ff41]" />
+          <div className="flex size-7 items-center justify-center rounded-full border-2 border-[#00ff41] bg-background shadow-[0_0_0_3px_#000000,0_0_20px_rgba(0,255,65,0.6)] md:size-10 md:shadow-[0_0_0_4px_#000000,0_0_20px_rgba(0,255,65,0.6)]">
+            <Play className="size-3 fill-[#00ff41] text-[#00ff41] md:size-4" />
           </div>
         </div>
         <div className="ml-20 flex-1 md:ml-0 md:max-w-[calc(50%-2rem)] md:text-center">
@@ -395,7 +395,7 @@ export default function CptsRoadmap({
               {/* Card de contenido */}
               <div
                 className={cn(
-                  "group flex-1 rounded-xl border border-border/50 bg-card/50 p-5 backdrop-blur-sm transition-all duration-300 hover:border-[#9D4EDD] hover:bg-[#9D4EDD]/10 md:max-w-[calc(50%-2rem)]",
+                  "group ml-14 flex-1 rounded-xl border border-border/50 bg-card/50 p-4 backdrop-blur-sm transition-all duration-300 hover:border-[#9D4EDD] hover:bg-[#9D4EDD]/10 md:ml-0 md:max-w-[calc(50%-2rem)] md:p-5",
                   isCurrent &&
                     "border-[#00ff41]/50 shadow-[0_0_25px_rgba(0,255,65,0.15)]"
                 )}
@@ -444,15 +444,15 @@ export default function CptsRoadmap({
               <div className="absolute left-8 z-20 -translate-x-1/2 md:left-1/2 md:-translate-x-1/2">
                 <div
                   className={cn(
-                    "flex size-10 items-center justify-center rounded-full border-2 transition-colors duration-300 shadow-[0_0_0_4px_#000000]",
+                    "flex size-7 items-center justify-center rounded-full border-2 transition-colors duration-300 shadow-[0_0_0_3px_#000000] md:size-10 md:shadow-[0_0_0_4px_#000000]",
                     isCompleted
                       ? "border-[#00ff41] bg-[#00ff41]/20 text-[#00ff41]"
                       : isCurrent
-                        ? "border-[#00ff41] bg-background text-[#00ff41] shadow-[0_0_0_4px_#000000,0_0_30px_rgba(0,255,65,0.9)]"
-                        : "border-[#C77DFF] bg-background text-[#C77DFF] shadow-[0_0_0_4px_#000000,0_0_20px_rgba(157,78,221,0.6)]"
+                        ? "border-[#00ff41] bg-background text-[#00ff41] shadow-[0_0_0_3px_#000000,0_0_30px_rgba(0,255,65,0.9)] md:shadow-[0_0_0_4px_#000000,0_0_30px_rgba(0,255,65,0.9)]"
+                        : "border-[#C77DFF] bg-background text-[#C77DFF] shadow-[0_0_0_3px_#000000,0_0_20px_rgba(157,78,221,0.6)] md:shadow-[0_0_0_4px_#000000,0_0_20px_rgba(157,78,221,0.6)]"
                   )}
                 >
-                  <span className="font-mono text-xs font-bold">
+                  <span className="font-mono text-[9px] font-bold md:text-xs">
                     {module.id}
                   </span>
                 </div>
