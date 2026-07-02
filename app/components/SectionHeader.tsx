@@ -6,16 +6,18 @@ export default function SectionHeader({
   title,
   subtitle,
   className = "",
+  titleClassName = "",
 }: {
   title: string;
   subtitle?: string;
   className?: string;
+  titleClassName?: string;
 }) {
   return (
     <div className={`flex flex-col gap-4 mb-12 ${className}`}>
       <SlideUp>
         <div className="flex items-center gap-4">
-          <h2 className="text-3xl font-bold text-foreground md:text-4xl lg:text-5xl tracking-tight">
+          <h2 className={`text-3xl font-bold text-foreground md:text-4xl lg:text-5xl tracking-tight ${titleClassName}`}>
             <span className="text-primary">#</span> {title}
           </h2>
           <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />

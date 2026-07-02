@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, forwardRef } from "react";
 
 interface SectionWrapperProps {
   id: string;
@@ -7,20 +7,22 @@ interface SectionWrapperProps {
   fullWidth?: boolean;
 }
 
-export default function SectionWrapper({
-  id,
-  children,
-  className = "",
-  fullWidth = false,
-}: SectionWrapperProps) {
-  return (
-    <section
-      id={id}
-      className={`relative w-full py-24 md:py-32 ${className}`}
-    >
-      <div className={fullWidth ? "w-full" : "mx-auto max-w-7xl px-6"}>
-        {children}
-      </div>
-    </section>
-  );
-}
+const SectionWrapper = forwardRef<HTMLElement, SectionWrapperProps>(
+  ({ id, children, className = "", fullWidth = false }, ref) => {
+    return (
+      <section
+        ref={ref}
+        id={id}
+        className={`relative w-full py-24 md:py-32 ${className}`}
+      >
+        <div className={fullWidth ? "w-full" : "mx-auto max-w-7xl px-6"}>
+          {children}
+        </div>
+      </section>
+    );
+  }
+);
+
+SectionWrapper.displayName = "SectionWrapper";
+
+export default SectionWrapper;

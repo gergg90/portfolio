@@ -9,6 +9,7 @@ const navLinks = [
   { href: "#sobre-mi", label: "Sobre Mí" },
   { href: "#habilidades", label: "Habilidades" },
   { href: "#certificaciones", label: "Certificaciones" },
+  { href: "#roadmap-cpts", label: "Roadmap CPTS" },
   { href: "#writeups", label: "Writeups" },
   { href: "#contacto", label: "Contacto" },
 ];

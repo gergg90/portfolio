@@ -161,6 +161,31 @@
     50% { opacity: 0; }
   }
   
+  /* CPTS purple accents */
+  .text-cpts {
+    color: #9D4EDD;
+  }
+  
+  .bg-cpts {
+    background-color: #9D4EDD;
+  }
+  
+  .border-cpts {
+    border-color: #9D4EDD;
+  }
+  
+  .cpts-glow {
+    box-shadow: 0 0 20px rgba(157, 78, 221, 0.4),
+                0 0 40px rgba(157, 78, 221, 0.2);
+  }
+  
+  .text-gradient-cpts {
+    background: linear-gradient(270deg, #9D4EDD 40%, #00ff41);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
   .neon-text {
     color: #00ffff;
     text-shadow: 0 0 10px rgba(0, 255, 255, 0.5),
