@@ -226,6 +226,7 @@ export default function CptsRoadmap({
   const startRef = useRef<HTMLDivElement>(null);
   const moduleRefs = useRef<(HTMLDivElement | null)[]>([]);
   const bossRef = useRef<HTMLDivElement>(null);
+  const bossNodeRef = useRef<HTMLDivElement>(null);
   const [nodePositions, setNodePositions] = useState<Record<string, number>>({});
 
   const target = useMemo(() => {
@@ -257,8 +258,8 @@ export default function CptsRoadmap({
       }
     });
 
-    if (bossRef.current) {
-      const rect = bossRef.current.getBoundingClientRect();
+    if (bossNodeRef.current) {
+      const rect = bossNodeRef.current.getBoundingClientRect();
       positions.boss = rect.top - containerRect.top + rect.height / 2;
     }
 
@@ -470,45 +471,78 @@ export default function CptsRoadmap({
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="relative flex items-center justify-center pt-8"
+          className="relative flex flex-col items-center justify-center gap-6 pt-8"
         >
-          <div className="absolute left-8 z-20 -translate-x-1/2 md:left-1/2 md:-translate-x-1/2">
+          {/* Nodo pequeño en la línea para el pin */}
+          <div
+            ref={bossNodeRef}
+            className="absolute left-8 z-20 -translate-x-1/2 md:left-1/2 md:-translate-x-1/2"
+          >
             <motion.div
               animate={{
                 boxShadow: isBossCompleted
                   ? [
-                      "0 0 0 6px #000000, 0 0 20px rgba(0,255,65,0.4)",
-                      "0 0 0 6px #000000, 0 0 40px rgba(0,255,65,0.6)",
-                      "0 0 0 6px #000000, 0 0 20px rgba(0,255,65,0.4)",
+                      "0 0 0 4px #000000, 0 0 15px rgba(0,255,65,0.4)",
+                      "0 0 0 4px #000000, 0 0 30px rgba(0,255,65,0.6)",
+                      "0 0 0 4px #000000, 0 0 15px rgba(0,255,65,0.4)",
                     ]
                   : [
-                      "0 0 0 6px #000000, 0 0 20px rgba(157,78,221,0.4)",
-                      "0 0 0 6px #000000, 0 0 40px rgba(255,0,60,0.5)",
-                      "0 0 0 6px #000000, 0 0 20px rgba(157,78,221,0.4)",
+                      "0 0 0 4px #000000, 0 0 15px rgba(157,78,221,0.4)",
+                      "0 0 0 4px #000000, 0 0 30px rgba(255,0,60,0.5)",
+                      "0 0 0 4px #000000, 0 0 15px rgba(157,78,221,0.4)",
                     ],
               }}
               transition={{ duration: 2.5, repeat: Infinity }}
               className={cn(
-                "flex size-16 items-center justify-center rounded-full border-2 bg-background",
+                "flex size-10 items-center justify-center rounded-full border-2 bg-background",
                 isBossCompleted ? "border-[#00ff41]" : "border-destructive"
               )}
             >
               {isBossCompleted ? (
-                <Check className="size-7 text-[#00ff41]" />
+                <Check className="size-5 text-[#00ff41]" />
               ) : (
-                <Trophy className="size-7 text-destructive" />
+                <Trophy className="size-5 text-destructive" />
               )}
             </motion.div>
           </div>
 
+          {/* Card con icono grande dentro */}
           <div
             className={cn(
-              "ml-20 rounded-xl border p-6 backdrop-blur-sm md:ml-0 md:max-w-md md:text-center",
+              "relative z-10 mx-auto w-full max-w-md rounded-xl border p-6 text-center backdrop-blur-sm",
               isBossCompleted
                 ? "border-[#00ff41]/40 bg-gradient-to-br from-[#00ff41]/10 via-[#9D4EDD]/10 to-[#7B2CBF]/20"
                 : "border-destructive/40 bg-gradient-to-br from-[#9D4EDD]/15 via-destructive/10 to-[#7B2CBF]/20"
             )}
           >
+            <div className="mb-4 flex justify-center">
+              <motion.div
+                animate={{
+                  boxShadow: isBossCompleted
+                    ? [
+                        "0 0 0 6px #000000, 0 0 20px rgba(0,255,65,0.4)",
+                        "0 0 0 6px #000000, 0 0 40px rgba(0,255,65,0.6)",
+                        "0 0 0 6px #000000, 0 0 20px rgba(0,255,65,0.4)",
+                      ]
+                    : [
+                        "0 0 0 6px #000000, 0 0 20px rgba(157,78,221,0.4)",
+                        "0 0 0 6px #000000, 0 0 40px rgba(255,0,60,0.5)",
+                        "0 0 0 6px #000000, 0 0 20px rgba(157,78,221,0.4)",
+                      ],
+                }}
+                transition={{ duration: 2.5, repeat: Infinity }}
+                className={cn(
+                  "flex size-16 items-center justify-center rounded-full border-2 bg-background",
+                  isBossCompleted ? "border-[#00ff41]" : "border-destructive"
+                )}
+              >
+                {isBossCompleted ? (
+                  <Check className="size-7 text-[#00ff41]" />
+                ) : (
+                  <Trophy className="size-7 text-destructive" />
+                )}
+              </motion.div>
+            </div>
             <h3
               className={cn(
                 "font-mono text-sm font-bold uppercase tracking-wider",

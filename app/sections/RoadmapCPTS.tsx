@@ -29,7 +29,7 @@ export default function RoadmapCPTS() {
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
   const backgroundRotate = useTransform(scrollYProgress, [0, 1], [0, 12]);
-  const backgroundOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 0.25, 0.25, 0]);
+  const backgroundOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
     <SectionWrapper
@@ -47,7 +47,7 @@ export default function RoadmapCPTS() {
           src="/images/cpts-badge.png"
           alt=""
           fill
-          className="object-contain opacity-90 blur-[1px]"
+          className="object-contain opacity-100"
           aria-hidden="true"
         />
       </motion.div>
@@ -62,7 +62,7 @@ export default function RoadmapCPTS() {
           src="/images/cpts-badge.png"
           alt=""
           fill
-          className="object-contain opacity-50 blur-sm"
+          className="object-contain opacity-90"
           aria-hidden="true"
         />
       </motion.div>
