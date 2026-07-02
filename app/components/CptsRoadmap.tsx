@@ -503,28 +503,18 @@ export default function CptsRoadmap({
           {/* Card con icono grande e imagen del mago de fondo */}
           <div
             className={cn(
-              "relative z-10 mx-auto w-full max-w-md overflow-hidden rounded-xl border text-center",
-              isBossCompleted
-                ? "border-[#00ff41]/40"
-                : "border-destructive/40"
+              "relative z-10 mx-auto w-full max-w-md overflow-hidden rounded-xl border border-[#00ff41]/50 bg-black/60 text-center shadow-[0_0_20px_rgba(0,255,65,0.15),0_0_40px_rgba(0,255,65,0.08)]",
+              isBossCompleted && "shadow-[0_0_25px_rgba(0,255,65,0.25),0_0_50px_rgba(0,255,65,0.12)]"
             )}
           >
-            {/* Imagen de fondo: mago CPTS */}
+            {/* Imagen de fondo: mago CPTS sin fondo */}
             <div className="absolute inset-0 z-0">
               <Image
-                src="/images/cpts-wizard.png"
+                src="/images/cpts-wizard-transparent.png"
                 alt=""
                 fill
-                className="object-cover object-center opacity-50"
+                className="object-contain object-center opacity-90"
                 aria-hidden="true"
-              />
-              <div
-                className={cn(
-                  "absolute inset-0",
-                  isBossCompleted
-                    ? "bg-gradient-to-br from-[#00ff41]/40 via-[#9D4EDD]/40 to-[#7B2CBF]/70"
-                    : "bg-gradient-to-br from-[#9D4EDD]/50 via-destructive/30 to-[#7B2CBF]/70"
-                )}
               />
             </div>
 
