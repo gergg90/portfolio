@@ -180,7 +180,7 @@
   }
   
   .text-gradient-cpts {
-    background: linear-gradient(270deg, #9D4EDD 40%, #00ff41);
+    background: linear-gradient(270deg, #C77DFF 0%, #9D4EDD 50%, #00ff41 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

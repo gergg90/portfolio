@@ -44,7 +44,7 @@ export default function AnnouncementPopover() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 10, scale: 0.95 }}
           transition={{ duration: 0.4, ease: [0.165, 0.84, 0.44, 1] }}
-          className="fixed bottom-6 right-6 z-50 max-w-sm"
+          className="fixed bottom-4 right-4 z-50 w-[calc(100vw-2rem)] max-w-sm sm:bottom-6 sm:right-6"
         >
           <div className="group relative overflow-hidden rounded-2xl border border-[#9D4EDD]/30 bg-card/80 p-4 shadow-2xl shadow-[#9D4EDD]/10 backdrop-blur-nav">
             {/* Brillo sutil de fondo */}
@@ -64,13 +64,13 @@ export default function AnnouncementPopover() {
               className="flex w-full items-start gap-3 text-left"
             >
               <div className="relative shrink-0">
-                <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-primary/20 to-[#9D4EDD]/30 blur-sm" />
+                <div className="absolute -inset-1 rounded-full bg-[#9D4EDD]/30 blur-sm" />
                 <Image
                   src="/images/cpts-badge.png"
                   alt="CPTS"
                   width={44}
                   height={44}
-                  className="relative rounded-full border border-[#9D4EDD]/40 bg-background"
+                  className="relative rounded-full border border-[#9D4EDD]/60 bg-background shadow-[0_0_15px_rgba(157,78,221,0.3)]"
                 />
               </div>
 

@@ -217,12 +217,12 @@ export default function CptsRoadmap() {
 
   return (
     <div className="relative mx-auto max-w-5xl">
-      {/* Línea central de la ruta: verde → morado → rojo */}
-      <div className="absolute inset-y-0 left-8 w-0.5 md:left-1/2 md:-translate-x-1/2">
-        <div className="h-full w-full bg-gradient-to-b from-primary via-[#9D4EDD] to-destructive shadow-[0_0_20px_rgba(157,78,221,0.7),0_0_40px_rgba(157,78,221,0.3)]" />
+      {/* Línea central de la ruta: morado predominante con acento verde al inicio y rojo al final */}
+      <div className="absolute inset-y-0 left-8 z-0 w-0.5 md:left-1/2 md:-translate-x-1/2">
+        <div className="h-full w-full bg-gradient-to-b from-[#7B2CBF] via-[#9D4EDD] to-destructive shadow-[0_0_25px_rgba(157,78,221,0.8),0_0_50px_rgba(157,78,221,0.4)]" />
       </div>
 
-      {/* Badge CPTS animado sobre la ruta con aura bicolor */}
+      {/* Badge CPTS animado sobre la ruta con aura morada predominante */}
       <motion.div
         initial={{ top: "0%", opacity: 0 }}
         animate={{ top: ["0%", "100%", "0%"], opacity: 1 }}
@@ -234,7 +234,7 @@ export default function CptsRoadmap() {
           },
           opacity: { duration: 0.6 },
         }}
-        className="absolute left-8 z-20 hidden h-full -translate-x-1/2 md:left-1/2 md:block"
+        className="absolute left-8 z-30 hidden h-full -translate-x-1/2 md:left-1/2 md:block"
       >
         <motion.div
           animate={{ y: [0, -8, 0] }}
@@ -245,13 +245,14 @@ export default function CptsRoadmap() {
           }}
           className="relative"
         >
-          <div className="absolute -inset-3 rounded-full bg-gradient-to-br from-primary/30 to-[#9D4EDD]/40 blur-lg" />
+          <div className="absolute -inset-4 rounded-full bg-[#9D4EDD]/30 blur-xl" />
+          <div className="absolute -inset-2 rounded-full bg-gradient-to-br from-primary/20 to-[#9D4EDD]/50 blur-md" />
           <Image
             src="/images/cpts-badge.png"
             alt="Insignia HTB CPTS"
             width={56}
             height={56}
-            className="relative rounded-full border-2 border-[#9D4EDD]/60 bg-card shadow-[0_0_25px_rgba(157,78,221,0.35)]"
+            className="relative rounded-full border-2 border-[#9D4EDD] bg-card shadow-[0_0_30px_rgba(157,78,221,0.5)]"
           />
         </motion.div>
       </motion.div>
@@ -281,8 +282,8 @@ export default function CptsRoadmap() {
               {/* Card de contenido */}
               <div
                 className={cn(
-                  "group flex-1 rounded-xl border border-border/50 bg-card/50 p-5 backdrop-blur-sm transition-all duration-300 hover:border-[#9D4EDD]/60 hover:bg-[#9D4EDD]/5 md:max-w-[calc(50%-2rem)]",
-                  isHovered && "border-[#9D4EDD]/80 shadow-[0_0_30px_rgba(157,78,221,0.2)]"
+                  "group flex-1 rounded-xl border border-border/50 bg-card/50 p-5 backdrop-blur-sm transition-all duration-300 hover:border-[#9D4EDD] hover:bg-[#9D4EDD]/10 md:max-w-[calc(50%-2rem)]",
+                  isHovered && "shadow-[0_0_35px_rgba(157,78,221,0.25)]"
                 )}
                 onMouseEnter={() => setHoveredId(module.id)}
                 onMouseLeave={() => setHoveredId(null)}
@@ -299,13 +300,13 @@ export default function CptsRoadmap() {
                         <span className="font-mono text-xs text-[#9D4EDD]">
                           #{String(module.id).padStart(2, "0")}
                         </span>
-                        <Lock className="size-3 text-muted-foreground" />
+                        <Lock className="size-3 text-primary" />
                       </div>
-                      <h3 className="font-semibold text-foreground transition-colors group-hover:text-[#9D4EDD]">
+                      <h3 className="font-semibold text-foreground transition-colors group-hover:text-[#C77DFF]">
                         {module.title}
                       </h3>
                     </div>
-                    <ExternalLink className="size-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:text-[#9D4EDD] group-hover:opacity-100" />
+                    <ExternalLink className="size-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:text-[#C77DFF] group-hover:opacity-100" />
                   </div>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     {module.description}
@@ -313,15 +314,15 @@ export default function CptsRoadmap() {
                 </a>
               </div>
 
-              {/* Nodo central */}
-              <div className="absolute left-8 z-10 -translate-x-1/2 md:left-1/2 md:-translate-x-1/2">
+              {/* Nodo central: siempre por encima de la línea */}
+              <div className="absolute left-8 z-20 -translate-x-1/2 md:left-1/2 md:-translate-x-1/2">
                 <motion.div
                   whileHover={{ scale: 1.15 }}
                   className={cn(
-                    "flex size-10 items-center justify-center rounded-full border-2 transition-colors duration-300",
+                    "flex size-10 items-center justify-center rounded-full border-2 transition-colors duration-300 shadow-[0_0_0_4px_#000000]",
                     isHovered
-                      ? "border-[#9D4EDD] bg-[#9D4EDD]/20 text-white shadow-[0_0_25px_rgba(157,78,221,0.8)]"
-                      : "border-[#9D4EDD] bg-[#9D4EDD]/10 text-white shadow-[0_0_15px_rgba(157,78,221,0.5)]"
+                      ? "border-[#C77DFF] bg-[#9D4EDD] text-white shadow-[0_0_0_4px_#000000,0_0_30px_rgba(157,78,221,0.9)]"
+                      : "border-[#C77DFF] bg-background text-[#C77DFF] shadow-[0_0_0_4px_#000000,0_0_20px_rgba(157,78,221,0.6)]"
                   )}
                 >
                   <span className="font-mono text-xs font-bold">{module.id}</span>
@@ -342,13 +343,13 @@ export default function CptsRoadmap() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="relative flex items-center justify-center pt-8"
         >
-          <div className="absolute left-8 z-10 -translate-x-1/2 md:left-1/2 md:-translate-x-1/2">
+          <div className="absolute left-8 z-20 -translate-x-1/2 md:left-1/2 md:-translate-x-1/2">
             <motion.div
               animate={{
                 boxShadow: [
-                  "0 0 20px rgba(157,78,221,0.4)",
-                  "0 0 40px rgba(255,0,60,0.5)",
-                  "0 0 20px rgba(157,78,221,0.4)",
+                  "0 0 0 6px #000000, 0 0 20px rgba(157,78,221,0.4)",
+                  "0 0 0 6px #000000, 0 0 40px rgba(255,0,60,0.5)",
+                  "0 0 0 6px #000000, 0 0 20px rgba(157,78,221,0.4)",
                 ],
               }}
               transition={{ duration: 2.5, repeat: Infinity }}
@@ -358,7 +359,7 @@ export default function CptsRoadmap() {
             </motion.div>
           </div>
 
-          <div className="ml-20 rounded-xl border border-destructive/30 bg-gradient-to-br from-destructive/10 to-[#9D4EDD]/10 p-6 backdrop-blur-sm md:ml-0 md:max-w-md md:text-center">
+          <div className="ml-20 rounded-xl border border-destructive/40 bg-gradient-to-br from-[#9D4EDD]/15 via-destructive/10 to-[#7B2CBF]/20 p-6 backdrop-blur-sm md:ml-0 md:max-w-md md:text-center">
             <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-destructive">
               Boss Final
             </h3>
