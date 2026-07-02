@@ -54,7 +54,6 @@ export default function Hero() {
           className="text-4xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl"
         >
           <span className="text-purple-glow">Germain Gutierrez</span>
-          <span className="terminal-cursor text-primary" />
         </motion.h1>
 
         <motion.p

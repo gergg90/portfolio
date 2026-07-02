@@ -18,13 +18,30 @@ export default function Contact() {
         />
 
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-          <SlideUp className="flex flex-col gap-4 max-w-md">
-            <p className="text-lg text-muted-foreground">
-              ¿Tienes un proyecto, una oportunidad o simplemente quieres hablar de ciberseguridad?
-              Estoy abierto a colaboraciones, auditorías y nuevos retos.
-            </p>
-            <div className="font-mono text-sm text-primary">
-              <span className="text-muted-foreground">$</span> echo &quot;Hola mundo&quot; &gt; contacto.txt
+          <SlideUp className="flex max-w-md">
+            <div className="w-full overflow-hidden rounded-lg border border-[#00ff41]/30 bg-black/60 shadow-[0_0_20px_rgba(0,255,65,0.1)]">
+              {/* Barra de título tipo terminal */}
+              <div className="flex items-center gap-1.5 border-b border-[#00ff41]/20 bg-[#00ff41]/5 px-3 py-2">
+                <div className="size-2.5 rounded-full bg-red-500/80" />
+                <div className="size-2.5 rounded-full bg-yellow-500/80" />
+                <div className="size-2.5 rounded-full bg-green-500/80" />
+                <span className="ml-2 font-mono text-[10px] text-[#00ff41]/60">bash — contacto.sh</span>
+              </div>
+              {/* Contenido de la terminal */}
+              <div className="p-4 font-mono text-sm">
+                <div className="flex flex-wrap items-center gap-1 text-[#00ff41]">
+                  <span className="text-muted-foreground">$</span>
+                  <span>echo</span>
+                  <span className="text-[#00ff41]/80">&quot;Hola mundo&quot;</span>
+                  <span>&gt;</span>
+                  <span className="text-[#00ff41]/80">contacto.txt</span>
+                  <span className="terminal-cursor text-[#00ff41]" />
+                </div>
+                <p className="mt-3 text-muted-foreground">
+                  ¿Tienes un proyecto, una oportunidad o simplemente quieres hablar de ciberseguridad?
+                  Estoy abierto a colaboraciones, auditorías y nuevos retos.
+                </p>
+              </div>
             </div>
           </SlideUp>
 
@@ -103,7 +120,7 @@ export default function Contact() {
             <motion.div
               whileHover={{ scale: 1.02 }}
               className="relative rounded-xl border border-primary/30 bg-card/30 px-8 py-6 backdrop-blur-sm"
-              style={{ boxShadow: '0 0 30px rgba(157, 78, 221, 0.15), 0 0 60px rgba(157, 78, 221, 0.08)' }}
+              style={{ boxShadow: '0 0 30px rgba(0, 255, 65, 0.15), 0 0 60px rgba(0, 255, 65, 0.08)' }}
             >
               <div className="flex flex-col items-center gap-3">
                 <div className="flex items-center gap-3 text-primary">

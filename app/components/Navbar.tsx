@@ -74,10 +74,12 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <a
           href="#inicio"
-          className="flex items-center gap-2 font-mono text-lg font-semibold text-primary electric-text"
+          className="group flex items-center gap-1.5 rounded-md border border-[#00ff41]/30 bg-black/50 px-2 py-1.5 font-mono text-xs text-[#00ff41] shadow-[0_0_15px_rgba(0,255,65,0.1)] transition-all duration-300 hover:border-[#00ff41]/60 hover:shadow-[0_0_20px_rgba(0,255,65,0.2)] sm:gap-2 sm:px-2.5 sm:text-sm"
         >
-          <Terminal className="size-5" />
-          <span>root@portfolio</span>
+          <Terminal className="size-4" />
+          <span className="hidden sm:inline">root@portfolio</span>
+          <span className="terminal-cursor text-[#00ff41] sm:inline" />
+          <span className="sr-only sm:hidden">root@portfolio</span>
         </a>
 
         <div className="hidden md:flex items-center gap-1">

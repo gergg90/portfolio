@@ -300,7 +300,7 @@ export default function CptsRoadmap() {
                         <span className="font-mono text-xs text-[#9D4EDD]">
                           #{String(module.id).padStart(2, "0")}
                         </span>
-                        <Lock className="size-3 text-primary" />
+                        <Lock className="size-3 text-[#00ff41]" />
                       </div>
                       <h3 className="font-semibold text-foreground transition-colors group-hover:text-[#C77DFF]">
                         {module.title}
