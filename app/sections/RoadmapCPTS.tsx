@@ -6,15 +6,21 @@ import Image from "next/image";
 import SectionWrapper from "../components/SectionWrapper";
 import SectionHeader from "../components/SectionHeader";
 import CptsRoadmap from "../components/CptsRoadmap";
+import CptsPodium from "../components/CptsPodium";
 import { Shield, Terminal } from "lucide-react";
 
 const TOTAL_MODULES = 28;
-const COMPLETED_MODULES = 0;
-const PROGRESS_PERCENTAGE = Math.round(
-  (COMPLETED_MODULES / TOTAL_MODULES) * 100
-);
+// Edita este array a medida que completes módulos. Ejemplo: [1, 2, 3]
+export const COMPLETED_MODULE_IDS: number[] = [];
+// Cambia a true cuando hayas aprobado el examen CPTS.
+export const BOSS_COMPLETED = false;
 
 export default function RoadmapCPTS() {
+  const completedCount = COMPLETED_MODULE_IDS.length;
+  const progressPercentage = Math.round(
+    (completedCount / TOTAL_MODULES) * 100
+  );
+  const isBossCompleted = BOSS_COMPLETED;
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -84,14 +90,14 @@ export default function RoadmapCPTS() {
                 <span>~/cpts-roadmap/progress.txt</span>
               </div>
               <span className="font-mono text-sm text-muted-foreground">
-                {COMPLETED_MODULES}/{TOTAL_MODULES} módulos
+                {completedCount}/{TOTAL_MODULES} módulos
               </span>
             </div>
 
             <div className="relative h-2 overflow-hidden rounded-full bg-muted">
               <motion.div
                 initial={{ width: 0 }}
-                whileInView={{ width: `${PROGRESS_PERCENTAGE}%` }}
+                whileInView={{ width: `${progressPercentage}%` }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.4, ease: [0.165, 0.84, 0.44, 1] }}
                 className="h-full rounded-full bg-gradient-to-r from-primary/80 via-[#9D4EDD] to-[#7B2CBF] shadow-[0_0_15px_rgba(157,78,221,0.5)]"
@@ -101,7 +107,7 @@ export default function RoadmapCPTS() {
             <p className="mt-3 text-center text-sm text-muted-foreground">
               Progreso actual:{" "}
               <span className="font-semibold text-foreground">
-                {PROGRESS_PERCENTAGE}%
+                {progressPercentage}%
               </span>
               . Para ser elegible al examen es necesario completar el{" "}
               <span className="text-[#9D4EDD]">Penetration Tester Job-Role Path</span>{" "}
@@ -135,7 +141,10 @@ export default function RoadmapCPTS() {
         </motion.div>
 
         {/* Roadmap visual */}
-        <CptsRoadmap />
+        <CptsRoadmap completedModuleIds={COMPLETED_MODULE_IDS} isBossCompleted={isBossCompleted} />
+
+        {/* Podio con certificado una vez completado el boss final */}
+        {isBossCompleted && <CptsPodium />}
       </div>
     </SectionWrapper>
   );

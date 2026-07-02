@@ -55,7 +55,7 @@ export default function HackerBackground() {
           vx: (Math.random() - 0.5) * baseSpeed,
           vy: (Math.random() - 0.5) * baseSpeed,
           size: Math.random() * 2 + 1,
-          color: randomColor(0.1),
+          color: randomColor(0.25),
         });
       }
 
@@ -64,7 +64,7 @@ export default function HackerBackground() {
       dropColors = [];
       for (let i = 0; i < columns; i++) {
         drops[i] = Math.random() * -100;
-        dropColors[i] = randomColor(0.15);
+        dropColors[i] = randomColor(0.25);
       }
     };
 
@@ -118,7 +118,8 @@ export default function HackerBackground() {
         drops[i]++;
         if (drops[i] * 20 > logicalHeight && Math.random() > 0.98) {
           drops[i] = 0;
-        dropColors[i] = randomColor(0.1);
+          dropColors[i] = randomColor(0.25);
+
         }
       }
 

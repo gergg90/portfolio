@@ -1,9 +1,9 @@
 "use client";
 
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
-import { Trophy, ExternalLink, Lock } from "lucide-react";
+import { Trophy, ExternalLink, Lock, Check, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface RoadmapModule {
@@ -212,60 +212,172 @@ const modules: RoadmapModule[] = [
   },
 ];
 
-export default function CptsRoadmap() {
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
+interface CptsRoadmapProps {
+  completedModuleIds?: number[];
+  isBossCompleted?: boolean;
+}
+
+export default function CptsRoadmap({
+  completedModuleIds = [],
+  isBossCompleted = false,
+}: CptsRoadmapProps) {
+  const completedCount = completedModuleIds.length;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const startRef = useRef<HTMLDivElement>(null);
+  const moduleRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const bossRef = useRef<HTMLDivElement>(null);
+  const [nodePositions, setNodePositions] = useState<Record<string, number>>({});
+
+  const target = useMemo(() => {
+    if (completedCount === 0) return { type: "start" as const };
+    if (completedCount >= modules.length) {
+      if (isBossCompleted) return { type: "done" as const };
+      return { type: "boss" as const };
+    }
+    return { type: "module" as const, id: completedCount + 1 };
+  }, [completedCount, isBossCompleted]);
+
+  const currentModuleId = target.type === "module" ? target.id : null;
+
+  const measurePositions = useCallback(() => {
+    if (!containerRef.current) return;
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const positions: Record<string, number> = {};
+
+    if (startRef.current) {
+      const rect = startRef.current.getBoundingClientRect();
+      positions.start = rect.top - containerRect.top + rect.height / 2;
+    }
+
+    moduleRefs.current.forEach((ref, idx) => {
+      if (ref) {
+        const rect = ref.getBoundingClientRect();
+        positions[`module-${modules[idx].id}`] =
+          rect.top - containerRect.top + rect.height / 2;
+      }
+    });
+
+    if (bossRef.current) {
+      const rect = bossRef.current.getBoundingClientRect();
+      positions.boss = rect.top - containerRect.top + rect.height / 2;
+    }
+
+    setNodePositions(positions);
+  }, []);
+
+  useLayoutEffect(() => {
+    measurePositions();
+  }, [measurePositions]);
+
+  useEffect(() => {
+    window.addEventListener("resize", measurePositions);
+    // Re-medir tras las animaciones de entrada de Framer Motion
+    const timers = [setTimeout(measurePositions, 300), setTimeout(measurePositions, 700)];
+    return () => {
+      window.removeEventListener("resize", measurePositions);
+      timers.forEach(clearTimeout);
+    };
+  }, [measurePositions]);
+
+  useEffect(() => {
+    measurePositions();
+  }, [completedCount, isBossCompleted, measurePositions]);
+
+  const setModuleRef = useCallback(
+    (index: number) => (el: HTMLDivElement | null) => {
+      moduleRefs.current[index] = el;
+    },
+    []
+  );
+
+  const pinKey =
+    target.type === "module" ? `module-${target.id}` : target.type;
+  const pinCenterTop = nodePositions[pinKey] ?? 0;
+
+  const startCenterTop = nodePositions.start ?? 0;
+  const progressFrom = Math.min(startCenterTop, pinCenterTop);
+  const progressHeight = Math.abs(pinCenterTop - startCenterTop);
 
   return (
-    <div className="relative mx-auto max-w-5xl">
-      {/* Línea central de la ruta: morado predominante con acento verde al inicio y rojo al final */}
+    <div ref={containerRef} className="relative mx-auto max-w-5xl">
+      {/* Línea base de la ruta */}
       <div className="absolute inset-y-0 left-8 z-0 w-0.5 md:left-1/2 md:-translate-x-1/2">
         <div className="h-full w-full bg-gradient-to-b from-[#7B2CBF] via-[#9D4EDD] to-destructive shadow-[0_0_25px_rgba(157,78,221,0.8),0_0_50px_rgba(157,78,221,0.4)]" />
       </div>
 
-      {/* Badge CPTS animado sobre la ruta con aura morada predominante */}
+      {/* Canal iluminado según el progreso */}
       <motion.div
-        initial={{ top: "0%", opacity: 0 }}
-        animate={{ top: ["0%", "100%", "0%"], opacity: 1 }}
-        transition={{
-          top: {
-            duration: 24,
-            repeat: Infinity,
-            ease: "linear",
-          },
-          opacity: { duration: 0.6 },
-        }}
-        className="absolute left-8 z-30 hidden h-full -translate-x-1/2 md:left-1/2 md:block"
+        className="absolute left-8 z-[1] w-1 -translate-x-1/2 rounded-full md:left-1/2"
+        style={{ top: progressFrom }}
+        initial={false}
+        animate={{ height: progressHeight }}
+        transition={{ duration: 0.8, ease: [0.165, 0.84, 0.44, 1] }}
+      >
+        <div className="h-full w-full rounded-full bg-[#00ff41] shadow-[0_0_15px_#00ff41,0_0_30px_#00ff41]" />
+      </motion.div>
+
+      {/* Pin CPTS que avanza como en un nivel de Mario */}
+      <motion.div
+        className="absolute left-8 z-30 -translate-x-1/2 md:left-1/2"
+        style={{ top: pinCenterTop }}
+        initial={false}
+        animate={{ top: pinCenterTop }}
+        transition={{ duration: 0.8, ease: [0.165, 0.84, 0.44, 1] }}
       >
         <motion.div
-          animate={{ y: [0, -8, 0] }}
+          animate={{ y: [0, -6, 0] }}
           transition={{
-            duration: 3,
+            duration: 2,
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="relative"
+          className="relative -translate-y-1/2"
         >
-          <div className="absolute -inset-4 rounded-full bg-[#9D4EDD]/30 blur-xl" />
-          <div className="absolute -inset-2 rounded-full bg-gradient-to-br from-primary/20 to-[#9D4EDD]/50 blur-md" />
+          <div className="absolute -inset-3 rounded-full bg-[#9D4EDD]/30 blur-xl md:-inset-4" />
+          <div className="absolute -inset-1.5 rounded-full bg-gradient-to-br from-primary/20 to-[#9D4EDD]/50 blur-md md:-inset-2" />
           <Image
             src="/images/cpts-badge.png"
             alt="Insignia HTB CPTS"
             width={56}
             height={56}
-            className="relative rounded-full border-2 border-[#9D4EDD] bg-card shadow-[0_0_30px_rgba(157,78,221,0.5)]"
+            className="relative size-10 rounded-full border-2 border-[#9D4EDD] bg-card shadow-[0_0_30px_rgba(157,78,221,0.5)] md:size-14"
           />
         </motion.div>
       </motion.div>
 
-      {/* Nodos del roadmap */}
+      {/* Nodo START */}
+      <motion.div
+        ref={startRef}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5, ease: [0.165, 0.84, 0.44, 1] }}
+        className="relative flex items-center gap-6 pb-8 md:pb-12"
+      >
+        <div className="hidden flex-1 md:block md:max-w-[calc(50%-2rem)]" />
+        <div className="absolute left-8 z-20 -translate-x-1/2 md:left-1/2 md:-translate-x-1/2">
+          <div className="flex size-10 items-center justify-center rounded-full border-2 border-[#00ff41] bg-background shadow-[0_0_0_4px_#000000,0_0_20px_rgba(0,255,65,0.6)]">
+            <Play className="size-4 fill-[#00ff41] text-[#00ff41]" />
+          </div>
+        </div>
+        <div className="ml-20 flex-1 md:ml-0 md:max-w-[calc(50%-2rem)] md:text-center">
+          <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#00ff41]">
+            START
+          </span>
+        </div>
+      </motion.div>
+
+      {/* Módulos */}
       <div className="relative space-y-8 md:space-y-12">
         {modules.map((module, index) => {
+          const isCompleted = completedModuleIds.includes(module.id);
+          const isCurrent = currentModuleId === module.id;
           const isEven = index % 2 === 0;
-          const isHovered = hoveredId === module.id;
 
           return (
             <motion.div
               key={module.id}
+              ref={setModuleRef(index)}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -283,10 +395,9 @@ export default function CptsRoadmap() {
               <div
                 className={cn(
                   "group flex-1 rounded-xl border border-border/50 bg-card/50 p-5 backdrop-blur-sm transition-all duration-300 hover:border-[#9D4EDD] hover:bg-[#9D4EDD]/10 md:max-w-[calc(50%-2rem)]",
-                  isHovered && "shadow-[0_0_35px_rgba(157,78,221,0.25)]"
+                  isCurrent &&
+                    "border-[#00ff41]/50 shadow-[0_0_25px_rgba(0,255,65,0.15)]"
                 )}
-                onMouseEnter={() => setHoveredId(module.id)}
-                onMouseLeave={() => setHoveredId(null)}
               >
                 <a
                   href={`https://academy.hackthebox.com/course/preview/${module.slug}`}
@@ -296,13 +407,27 @@ export default function CptsRoadmap() {
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <div className="mb-1 flex items-center gap-2">
+                      <div className="mb-1 flex flex-wrap items-center gap-2">
                         <span className="font-mono text-xs text-[#9D4EDD]">
                           #{String(module.id).padStart(2, "0")}
                         </span>
-                        <Lock className="size-3 text-[#00ff41]" />
+                        {isCompleted ? (
+                          <Check className="size-3 text-[#00ff41]" />
+                        ) : (
+                          <Lock className="size-3 text-[#00ff41]" />
+                        )}
+                        {isCurrent && (
+                          <span className="rounded bg-[#00ff41]/10 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase text-[#00ff41]">
+                            En curso
+                          </span>
+                        )}
                       </div>
-                      <h3 className="font-semibold text-foreground transition-colors group-hover:text-[#C77DFF]">
+                      <h3
+                        className={cn(
+                          "font-semibold text-foreground transition-colors group-hover:text-[#C77DFF]",
+                          isCompleted && "text-[#00ff41]"
+                        )}
+                      >
                         {module.title}
                       </h3>
                     </div>
@@ -314,22 +439,25 @@ export default function CptsRoadmap() {
                 </a>
               </div>
 
-              {/* Nodo central: siempre por encima de la línea */}
+              {/* Nodo central */}
               <div className="absolute left-8 z-20 -translate-x-1/2 md:left-1/2 md:-translate-x-1/2">
-                <motion.div
-                  whileHover={{ scale: 1.15 }}
+                <div
                   className={cn(
                     "flex size-10 items-center justify-center rounded-full border-2 transition-colors duration-300 shadow-[0_0_0_4px_#000000]",
-                    isHovered
-                      ? "border-[#C77DFF] bg-[#9D4EDD] text-white shadow-[0_0_0_4px_#000000,0_0_30px_rgba(157,78,221,0.9)]"
-                      : "border-[#C77DFF] bg-background text-[#C77DFF] shadow-[0_0_0_4px_#000000,0_0_20px_rgba(157,78,221,0.6)]"
+                    isCompleted
+                      ? "border-[#00ff41] bg-[#00ff41]/20 text-[#00ff41]"
+                      : isCurrent
+                        ? "border-[#00ff41] bg-background text-[#00ff41] shadow-[0_0_0_4px_#000000,0_0_30px_rgba(0,255,65,0.9)]"
+                        : "border-[#C77DFF] bg-background text-[#C77DFF] shadow-[0_0_0_4px_#000000,0_0_20px_rgba(157,78,221,0.6)]"
                   )}
                 >
-                  <span className="font-mono text-xs font-bold">{module.id}</span>
-                </motion.div>
+                  <span className="font-mono text-xs font-bold">
+                    {module.id}
+                  </span>
+                </div>
               </div>
 
-              {/* Espaciador para el lado opuesto en desktop */}
+              {/* Espaciador del lado opuesto en desktop */}
               <div className="hidden flex-1 md:block md:max-w-[calc(50%-2rem)]" />
             </motion.div>
           );
@@ -337,6 +465,7 @@ export default function CptsRoadmap() {
 
         {/* Boss final: Examen CPTS */}
         <motion.div
+          ref={bossRef}
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -346,29 +475,54 @@ export default function CptsRoadmap() {
           <div className="absolute left-8 z-20 -translate-x-1/2 md:left-1/2 md:-translate-x-1/2">
             <motion.div
               animate={{
-                boxShadow: [
-                  "0 0 0 6px #000000, 0 0 20px rgba(157,78,221,0.4)",
-                  "0 0 0 6px #000000, 0 0 40px rgba(255,0,60,0.5)",
-                  "0 0 0 6px #000000, 0 0 20px rgba(157,78,221,0.4)",
-                ],
+                boxShadow: isBossCompleted
+                  ? [
+                      "0 0 0 6px #000000, 0 0 20px rgba(0,255,65,0.4)",
+                      "0 0 0 6px #000000, 0 0 40px rgba(0,255,65,0.6)",
+                      "0 0 0 6px #000000, 0 0 20px rgba(0,255,65,0.4)",
+                    ]
+                  : [
+                      "0 0 0 6px #000000, 0 0 20px rgba(157,78,221,0.4)",
+                      "0 0 0 6px #000000, 0 0 40px rgba(255,0,60,0.5)",
+                      "0 0 0 6px #000000, 0 0 20px rgba(157,78,221,0.4)",
+                    ],
               }}
               transition={{ duration: 2.5, repeat: Infinity }}
-              className="flex size-16 items-center justify-center rounded-full border-2 border-destructive bg-background"
+              className={cn(
+                "flex size-16 items-center justify-center rounded-full border-2 bg-background",
+                isBossCompleted ? "border-[#00ff41]" : "border-destructive"
+              )}
             >
-              <Trophy className="size-7 text-destructive" />
+              {isBossCompleted ? (
+                <Check className="size-7 text-[#00ff41]" />
+              ) : (
+                <Trophy className="size-7 text-destructive" />
+              )}
             </motion.div>
           </div>
 
-          <div className="ml-20 rounded-xl border border-destructive/40 bg-gradient-to-br from-[#9D4EDD]/15 via-destructive/10 to-[#7B2CBF]/20 p-6 backdrop-blur-sm md:ml-0 md:max-w-md md:text-center">
-            <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-destructive">
-              Boss Final
+          <div
+            className={cn(
+              "ml-20 rounded-xl border p-6 backdrop-blur-sm md:ml-0 md:max-w-md md:text-center",
+              isBossCompleted
+                ? "border-[#00ff41]/40 bg-gradient-to-br from-[#00ff41]/10 via-[#9D4EDD]/10 to-[#7B2CBF]/20"
+                : "border-destructive/40 bg-gradient-to-br from-[#9D4EDD]/15 via-destructive/10 to-[#7B2CBF]/20"
+            )}
+          >
+            <h3
+              className={cn(
+                "font-mono text-sm font-bold uppercase tracking-wider",
+                isBossCompleted ? "text-[#00ff41]" : "text-destructive"
+              )}
+            >
+              {isBossCompleted ? "Boss Derrotado" : "Boss Final"}
             </h3>
             <h4 className="mt-1 text-lg font-semibold text-foreground">
               HTB Certified Penetration Testing Specialist
             </h4>
             <p className="mt-2 text-sm text-muted-foreground">
-              Examen práctico de pentesting web, externo e interno contra una red
-              Active Directory real. Requiere completar el path al 100%.
+              Examen práctico de pentesting web, externo e interno contra una
+              red Active Directory real. Requiere completar el path al 100%.
             </p>
           </div>
         </motion.div>
