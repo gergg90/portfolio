@@ -494,70 +494,86 @@ export default function CptsRoadmap({
               }}
               transition={{ duration: 2.5, repeat: Infinity }}
               className={cn(
-                "flex size-10 items-center justify-center rounded-full border-2 bg-background",
+                "size-5 rounded-full border-2 bg-background",
                 isBossCompleted ? "border-[#00ff41]" : "border-destructive"
               )}
-            >
-              {isBossCompleted ? (
-                <Check className="size-5 text-[#00ff41]" />
-              ) : (
-                <Trophy className="size-5 text-destructive" />
-              )}
-            </motion.div>
+            />
           </div>
 
-          {/* Card con icono grande dentro */}
+          {/* Card con icono grande e imagen del mago de fondo */}
           <div
             className={cn(
-              "relative z-10 mx-auto w-full max-w-md rounded-xl border p-6 text-center backdrop-blur-sm",
+              "relative z-10 mx-auto w-full max-w-md overflow-hidden rounded-xl border text-center",
               isBossCompleted
-                ? "border-[#00ff41]/40 bg-gradient-to-br from-[#00ff41]/10 via-[#9D4EDD]/10 to-[#7B2CBF]/20"
-                : "border-destructive/40 bg-gradient-to-br from-[#9D4EDD]/15 via-destructive/10 to-[#7B2CBF]/20"
+                ? "border-[#00ff41]/40"
+                : "border-destructive/40"
             )}
           >
-            <div className="mb-4 flex justify-center">
-              <motion.div
-                animate={{
-                  boxShadow: isBossCompleted
-                    ? [
-                        "0 0 0 6px #000000, 0 0 20px rgba(0,255,65,0.4)",
-                        "0 0 0 6px #000000, 0 0 40px rgba(0,255,65,0.6)",
-                        "0 0 0 6px #000000, 0 0 20px rgba(0,255,65,0.4)",
-                      ]
-                    : [
-                        "0 0 0 6px #000000, 0 0 20px rgba(157,78,221,0.4)",
-                        "0 0 0 6px #000000, 0 0 40px rgba(255,0,60,0.5)",
-                        "0 0 0 6px #000000, 0 0 20px rgba(157,78,221,0.4)",
-                      ],
-                }}
-                transition={{ duration: 2.5, repeat: Infinity }}
+            {/* Imagen de fondo: mago CPTS */}
+            <div className="absolute inset-0 z-0">
+              <Image
+                src="/images/cpts-wizard.png"
+                alt=""
+                fill
+                className="object-cover object-center opacity-50"
+                aria-hidden="true"
+              />
+              <div
                 className={cn(
-                  "flex size-16 items-center justify-center rounded-full border-2 bg-background",
-                  isBossCompleted ? "border-[#00ff41]" : "border-destructive"
+                  "absolute inset-0",
+                  isBossCompleted
+                    ? "bg-gradient-to-br from-[#00ff41]/40 via-[#9D4EDD]/40 to-[#7B2CBF]/70"
+                    : "bg-gradient-to-br from-[#9D4EDD]/50 via-destructive/30 to-[#7B2CBF]/70"
+                )}
+              />
+            </div>
+
+            {/* Contenido */}
+            <div className="relative z-10 p-6">
+              <div className="mb-4 flex justify-center">
+                <motion.div
+                  animate={{
+                    boxShadow: isBossCompleted
+                      ? [
+                          "0 0 0 6px #000000, 0 0 20px rgba(0,255,65,0.4)",
+                          "0 0 0 6px #000000, 0 0 40px rgba(0,255,65,0.6)",
+                          "0 0 0 6px #000000, 0 0 20px rgba(0,255,65,0.4)",
+                        ]
+                      : [
+                          "0 0 0 6px #000000, 0 0 20px rgba(157,78,221,0.4)",
+                          "0 0 0 6px #000000, 0 0 40px rgba(255,0,60,0.5)",
+                          "0 0 0 6px #000000, 0 0 20px rgba(157,78,221,0.4)",
+                        ],
+                  }}
+                  transition={{ duration: 2.5, repeat: Infinity }}
+                  className={cn(
+                    "flex size-16 items-center justify-center rounded-full border-2 bg-background",
+                    isBossCompleted ? "border-[#00ff41]" : "border-destructive"
+                  )}
+                >
+                  {isBossCompleted ? (
+                    <Check className="size-7 text-[#00ff41]" />
+                  ) : (
+                    <Trophy className="size-7 text-destructive" />
+                  )}
+                </motion.div>
+              </div>
+              <h3
+                className={cn(
+                  "font-mono text-sm font-bold uppercase tracking-wider",
+                  isBossCompleted ? "text-[#00ff41]" : "text-destructive"
                 )}
               >
-                {isBossCompleted ? (
-                  <Check className="size-7 text-[#00ff41]" />
-                ) : (
-                  <Trophy className="size-7 text-destructive" />
-                )}
-              </motion.div>
+                {isBossCompleted ? "Boss Derrotado" : "Boss Final"}
+              </h3>
+              <h4 className="mt-1 text-lg font-semibold text-foreground">
+                HTB Certified Penetration Testing Specialist
+              </h4>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Examen práctico de pentesting web, externo e interno contra una
+                red Active Directory real. Requiere completar el path al 100%.
+              </p>
             </div>
-            <h3
-              className={cn(
-                "font-mono text-sm font-bold uppercase tracking-wider",
-                isBossCompleted ? "text-[#00ff41]" : "text-destructive"
-              )}
-            >
-              {isBossCompleted ? "Boss Derrotado" : "Boss Final"}
-            </h3>
-            <h4 className="mt-1 text-lg font-semibold text-foreground">
-              HTB Certified Penetration Testing Specialist
-            </h4>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Examen práctico de pentesting web, externo e interno contra una
-              red Active Directory real. Requiere completar el path al 100%.
-            </p>
           </div>
         </motion.div>
       </div>
