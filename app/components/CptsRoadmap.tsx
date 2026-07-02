@@ -473,50 +473,23 @@ export default function CptsRoadmap({
           transition={{ duration: 0.6, delay: 0.2 }}
           className="relative flex flex-col items-center justify-center gap-6 pt-8"
         >
-          {/* Nodo pequeño en la línea para el pin */}
+          {/* Nodo invisible en la línea para el pin */}
           <div
             ref={bossNodeRef}
-            className="absolute left-8 z-20 -translate-x-1/2 md:left-1/2 md:-translate-x-1/2"
+            className="absolute left-8 z-20 -translate-x-1/2 opacity-0 md:left-1/2 md:-translate-x-1/2"
           >
-            <motion.div
-              animate={{
-                boxShadow: isBossCompleted
-                  ? [
-                      "0 0 0 4px #000000, 0 0 15px rgba(0,255,65,0.4)",
-                      "0 0 0 4px #000000, 0 0 30px rgba(0,255,65,0.6)",
-                      "0 0 0 4px #000000, 0 0 15px rgba(0,255,65,0.4)",
-                    ]
-                  : [
-                      "0 0 0 4px #000000, 0 0 15px rgba(157,78,221,0.4)",
-                      "0 0 0 4px #000000, 0 0 30px rgba(255,0,60,0.5)",
-                      "0 0 0 4px #000000, 0 0 15px rgba(157,78,221,0.4)",
-                    ],
-              }}
-              transition={{ duration: 2.5, repeat: Infinity }}
-              className={cn(
-                "size-5 rounded-full border-2 bg-background",
-                isBossCompleted ? "border-[#00ff41]" : "border-destructive"
-              )}
-            />
+            <div className="size-2 rounded-full bg-background" />
           </div>
 
-          {/* Card con icono grande e imagen del mago de fondo */}
-          <div
-            className={cn(
-              "relative z-10 mx-auto w-full max-w-md overflow-hidden rounded-xl border border-[#00ff41]/50 bg-black/60 text-center shadow-[0_0_20px_rgba(0,255,65,0.15),0_0_40px_rgba(0,255,65,0.08)]",
-              isBossCompleted && "shadow-[0_0_25px_rgba(0,255,65,0.25),0_0_50px_rgba(0,255,65,0.12)]"
-            )}
+          {/* Card con estilo footer YOU HAVE BEEN PWNED */}
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            className="relative z-10 mx-auto w-full max-w-md rounded-xl border border-primary/30 bg-card/30 px-8 py-6 text-center backdrop-blur-sm"
+            style={{
+              boxShadow:
+                "0 0 30px rgba(0, 255, 65, 0.15), 0 0 60px rgba(0, 255, 65, 0.08)",
+            }}
           >
-            {/* Imagen de fondo: mago CPTS sin fondo */}
-            <div className="absolute inset-0 z-0">
-              <Image
-                src="/images/cpts-wizard-transparent.png"
-                alt=""
-                fill
-                className="object-contain object-center opacity-90"
-                aria-hidden="true"
-              />
-            </div>
 
             {/* Contenido */}
             <div className="relative z-10 p-6">
@@ -564,6 +537,17 @@ export default function CptsRoadmap({
                 red Active Directory real. Requiere completar el path al 100%.
               </p>
             </div>
+          </motion.div>
+
+          {/* Mago CPTS debajo del card */}
+          <div className="relative z-10 mx-auto w-full max-w-xs">
+            <Image
+              src="/images/cpts-wizard-transparent.png"
+              alt="Mago CPTS"
+              width={400}
+              height={300}
+              className="mx-auto object-contain"
+            />
           </div>
         </motion.div>
       </div>
