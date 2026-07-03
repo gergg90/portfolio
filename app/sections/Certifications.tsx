@@ -65,19 +65,24 @@ const certifications = [
 // Diplomas de la Academia Hack4u
 const diplomas = [
   {
-    filename: "archlinux.webp",
-    title: "Arch Linux",
-    image: "/certificados/archlinux.webp",
+    filename: "1_hacking_web.webp",
+    title: "Hacking Web",
+    image: "/certificados/1_hacking_web.webp",
   },
   {
-    filename: "introduccion_al_hacking.webp",
+    filename: "2_introduccion_al_hacking.webp",
     title: "Introducción al Hacking",
-    image: "/certificados/introduccion_al_hacking.webp",
+    image: "/certificados/2_introduccion_al_hacking.webp",
   },
   {
-    filename: "personalizacion_linux.webp",
+    filename: "3_personalizacion_linux.webp",
     title: "Personalización Linux",
-    image: "/certificados/personalizacion_linux.webp",
+    image: "/certificados/3_personalizacion_linux.webp",
+  },
+  {
+    filename: "4_archlinux.webp",
+    title: "Arch Linux",
+    image: "/certificados/4_archlinux.webp",
   },
 ];
 
