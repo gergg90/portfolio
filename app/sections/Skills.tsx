@@ -37,7 +37,7 @@ const skills = [
       "IDOR",
       "RCE",
       "Buffer Overflow (x86)",
-      "Escalada de privilegios (SUID, capabilities, sudoers, docker group)",
+      "Escalada de privilegios",
       "Cracking de hashes y claves SSH",
     ],
   },

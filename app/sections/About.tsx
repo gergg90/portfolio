@@ -23,10 +23,9 @@ export default function About() {
           </SlideUp>
           <SlideUp delay={0.2}>
             <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-              Experiencia práctica demostrada mediante la resolución de más de 20 máquinas en plataformas CTF 
-              (Hack The Box, VulnHub) cubriendo técnicas como OWASP Top 10, buffer overflow, escalada de 
-              privilegios y post-explotación, complementada con proyectos personales de seguridad ofensiva 
-              y defensiva.
+              Experiencia realizando máquinas en plataformas CTF (Hack The Box, VulnHub) cubriendo técnicas 
+              como OWASP Top 10, buffer overflow, escalada de privilegios y post-explotación, complementada 
+              con proyectos personales de seguridad ofensiva y defensiva.
             </p>
           </SlideUp>
           <SlideUp delay={0.3}>
