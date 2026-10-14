@@ -2,7 +2,10 @@
 
 import { ArrowUpRight } from "lucide-react";
 import SectionWrapper from "../components/SectionWrapper";
-import { Marquee, SlideUp, TextReveal } from "../components/animations";
+import { Marquee, ScrambleText, SlideUp } from "../components/animations";
+import { hopOf } from "@/lib/traza";
+
+const contactHop = hopOf("contacto");
 
 const links = [
   {
@@ -38,13 +41,13 @@ export default function Contact() {
   return (
     <SectionWrapper id="contacto" className="pb-16 md:pb-24">
       <p className="label-mono mb-8 flex items-center gap-3 text-muted-foreground">
-        <span>hop 07/07</span>
+        <span>{contactHop.tag}</span>
         <span aria-hidden className="h-px w-8 bg-border" />
-        <span className="text-foreground">/contacto/</span>
+        <span className="text-foreground">{contactHop.path}</span>
       </p>
 
       <h2 className="font-display text-[clamp(3.5rem,16vw,13rem)] leading-[0.85] text-foreground">
-        <TextReveal text="Hablemos." />
+        <ScrambleText text="Hablemos." />
       </h2>
 
       <SlideUp delay={0.1} className="mt-10 md:mt-14">

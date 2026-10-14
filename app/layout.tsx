@@ -15,7 +15,7 @@ const dmMono = DM_Mono({
 });
 
 const description =
-  "Portfolio de Germain Gutierrez: perfil híbrido de redes, ciberseguridad e IA. Camino al CCNA 200-301, 7 certificaciones Cisco NetAcad, formación en Hack4u y desarrollo de apps con IA agéntica.";
+  "Portfolio de Germain Gutierrez: perfil híbrido de redes, ciberseguridad e IA. Camino al CCNA 200-301, estudiante de Ingeniería en Informática en la Universidad Alejandro de Humboldt, 7 certificaciones Cisco NetAcad y apps con IA agéntica.";
 
 export const viewport: Viewport = {
   themeColor: "#0a0907",
@@ -33,6 +33,8 @@ export const metadata: Metadata = {
     "Germain Gutierrez",
     "CCNA",
     "CCNA 200-301",
+    "Ingeniería en Informática",
+    "Universidad Alejandro de Humboldt",
     "Cisco",
     "Cisco Networking Academy",
     "redes",

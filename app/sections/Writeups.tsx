@@ -9,8 +9,7 @@ export default function Writeups() {
     <SectionWrapper id="writeups">
       <SectionHeader
         title="Writeups"
-        path="/writeups/"
-        hop={6}
+        section="writeups"
         subtitle="Writeups de máquinas y explicaciones técnicas de redes y seguridad."
       />
 

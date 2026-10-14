@@ -91,8 +91,7 @@ export default function Certifications() {
     <SectionWrapper id="certificaciones">
       <SectionHeader
         title="Certificaciones"
-        path="/certs/"
-        hop={4}
+        section="certificaciones"
         subtitle="Siete certificaciones de Cisco Networking Academy, todas verificables en Credly."
       />
 

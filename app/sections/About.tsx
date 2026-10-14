@@ -11,13 +11,14 @@ const facts = [
   { term: "Foco", detail: "CCNA 200-301, en curso" },
   { term: "Cisco NetAcad", detail: "7 certificaciones en Credly" },
   { term: "Hack4u", detail: "4 diplomas de seguridad y Linux" },
+  { term: "Universidad", detail: "Ing. en Informática, UAH · semestre 01" },
   { term: "IA", detail: "Apps con agentes: Claude Code y Hermes AI" },
 ];
 
 export default function About() {
   return (
     <SectionWrapper id="sobre-mi">
-      <SectionHeader title="Sobre mí" path="/sobre-mí/" hop={2} />
+      <SectionHeader title="Sobre mí" section="sobre-mi" />
 
       <div className="grid gap-16 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-24">
         <ScrollWords

@@ -2,40 +2,28 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
-
-// Cada href debe coincidir con el id de su sección. El orden es la traza de hops.
-export const navLinks = [
-  { href: "#inicio", label: "Inicio", path: "/" },
-  { href: "#sobre-mi", label: "Sobre mí", path: "/sobre-mí/" },
-  { href: "#habilidades", label: "Habilidades", path: "/skills/" },
-  { href: "#certificaciones", label: "Certificaciones", path: "/certs/" },
-  { href: "#roadmap-ccna", label: "Roadmap CCNA", path: "/ccna/" },
-  { href: "#writeups", label: "Writeups", path: "/writeups/" },
-  { href: "#contacto", label: "Contacto", path: "/contacto/" },
-];
+import { ScrambleText } from "./animations";
+import { navLinks } from "@/lib/traza";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("inicio");
+  const [activeSection, setActiveSection] = useState<string>("inicio");
   const { scrollYProgress } = useScroll();
   const trace = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.3 });
 
   const activeIndex = Math.max(
     0,
-    navLinks.findIndex((l) => l.href.slice(1) === activeSection),
+    navLinks.findIndex((link) => link.id === activeSection),
   );
   const active = navLinks[activeIndex];
 
-  const handleMobileNavClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string,
-  ) => {
+  const handleMobileNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     setMobileOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -50,11 +38,11 @@ export default function Navbar() {
         return;
       }
 
-      const sections = navLinks.map((l) => l.href.slice(1));
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.getBoundingClientRect().top <= 120) {
-          setActiveSection(sections[i]);
+      for (let i = navLinks.length - 1; i >= 0; i--) {
+        const el = document.getElementById(navLinks[i].id);
+        // Una sección cuenta como activa al cruzar el 40 % superior de la pantalla
+        if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.4) {
+          setActiveSection(navLinks[i].id);
           break;
         }
       }
@@ -98,20 +86,18 @@ export default function Navbar() {
 
         {/* Traza: en qué salto de la ruta está el visitante */}
         <p className="label-mono hidden items-center gap-3 text-muted-foreground md:flex">
-          <span>
-            hop {pad(activeIndex + 1)}/{pad(navLinks.length)}
-          </span>
+          <ScrambleText text={`hop ${pad(activeIndex + 1)}/${pad(navLinks.length)}`} />
           <span className="h-px w-8 bg-border" aria-hidden />
-          <span className="text-foreground">{active.label}</span>
+          <ScrambleText text={active.label} className="text-foreground" />
         </p>
 
-        <ul className="hidden items-center gap-6 xl:flex">
+        <ul className="hidden items-center gap-5 xl:flex">
           {navLinks.slice(1).map((link) => {
-            const isActive = activeSection === link.href.slice(1);
+            const isActive = activeSection === link.id;
             return (
-              <li key={link.href}>
+              <li key={link.id}>
                 <a
-                  href={link.href}
+                  href={`#${link.id}`}
                   aria-current={isActive ? "location" : undefined}
                   className={`label-mono inline-flex items-center gap-2 transition-colors ${
                     isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
@@ -156,10 +142,10 @@ export default function Navbar() {
           >
             <ol className="flex flex-col px-4 py-6 sm:px-6">
               {navLinks.map((link, index) => {
-                const isActive = activeSection === link.href.slice(1);
+                const isActive = activeSection === link.id;
                 return (
                   <motion.li
-                    key={link.href}
+                    key={link.id}
                     initial={{ opacity: 0, y: 24 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{
@@ -170,8 +156,8 @@ export default function Navbar() {
                     className="border-b border-border"
                   >
                     <a
-                      href={link.href}
-                      onClick={(e) => handleMobileNavClick(e, link.href)}
+                      href={`#${link.id}`}
+                      onClick={(e) => handleMobileNavClick(e, link.id)}
                       aria-current={isActive ? "location" : undefined}
                       className="flex items-baseline justify-between gap-4 py-4"
                     >

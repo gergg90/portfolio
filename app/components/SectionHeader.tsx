@@ -1,48 +1,38 @@
 "use client";
 
-import { SlideUp, TextReveal } from "./animations";
+import { ScrambleText, SlideUp } from "./animations";
+import { hopOf, type SectionId } from "@/lib/traza";
 
 interface SectionHeaderProps {
   title: string;
   subtitle?: string;
-  /** Ruta mono de la sección, p. ej. "/sobre-mí/". */
-  path?: string;
-  /** Salto de la traza: posición de la sección en la ruta del navbar. */
-  hop?: number;
-  totalHops?: number;
+  /** Id de la sección en `lib/traza.ts`: de él salen el número de hop y la ruta. */
+  section: SectionId;
   className?: string;
   titleClassName?: string;
 }
 
-const pad = (n: number) => String(n).padStart(2, "0");
-
 export default function SectionHeader({
   title,
   subtitle,
-  path,
-  hop,
-  totalHops = 7,
+  section,
   className = "",
   titleClassName = "",
 }: SectionHeaderProps) {
+  const { tag, path } = hopOf(section);
+
   return (
     <header className={`mb-14 md:mb-20 ${className}`}>
       <div className="flex flex-col gap-4 border-b border-border pb-6 md:flex-row md:items-end md:justify-between md:gap-10">
         <h2
           className={`font-display text-[clamp(1.85rem,7vw,5.5rem)] text-foreground ${titleClassName}`}
         >
-          <TextReveal text={title} />
+          <ScrambleText text={title} />
         </h2>
-        {(path || hop !== undefined) && (
-          <p className="label-mono flex shrink-0 items-center gap-3 text-muted-foreground md:pb-2">
-            {hop !== undefined && (
-              <span>
-                hop {pad(hop)}/{pad(totalHops)}
-              </span>
-            )}
-            {path && <span className="text-foreground">{path}</span>}
-          </p>
-        )}
+        <p className="label-mono flex shrink-0 items-center gap-3 text-muted-foreground md:pb-2">
+          <ScrambleText text={tag} />
+          <ScrambleText text={path} className="text-foreground" />
+        </p>
       </div>
       {subtitle && (
         <SlideUp delay={0.15} className="mt-6 md:ml-[40%]">

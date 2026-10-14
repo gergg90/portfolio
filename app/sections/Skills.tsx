@@ -90,8 +90,7 @@ export default function Skills() {
     <SectionWrapper id="habilidades">
       <SectionHeader
         title="Habilidades"
-        path="/skills/"
-        hop={3}
+        section="habilidades"
         subtitle="Del cable a la aplicación: lo que uso para entender, defender y probar una red."
       />
 
