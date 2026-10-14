@@ -13,9 +13,9 @@ const SectionWrapper = forwardRef<HTMLElement, SectionWrapperProps>(
       <section
         ref={ref}
         id={id}
-        className={`relative w-full py-24 md:py-32 ${className}`}
+        className={`relative w-full py-24 md:py-36 ${className}`}
       >
-        <div className={fullWidth ? "w-full" : "mx-auto max-w-7xl px-6"}>
+        <div className={fullWidth ? "w-full" : "mx-auto max-w-7xl px-4 sm:px-6 lg:px-10"}>
           {children}
         </div>
       </section>

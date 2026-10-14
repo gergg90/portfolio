@@ -1,35 +1,46 @@
 "use client";
 
-import { SlideUp } from "./animations";
+import { ScrambleText, SlideUp } from "./animations";
+import { hopOf, type SectionId } from "@/lib/traza";
+
+interface SectionHeaderProps {
+  title: string;
+  subtitle?: string;
+  /** Id de la sección en `lib/traza.ts`: de él salen el número de hop y la ruta. */
+  section: SectionId;
+  className?: string;
+  titleClassName?: string;
+}
 
 export default function SectionHeader({
   title,
   subtitle,
+  section,
   className = "",
   titleClassName = "",
-}: {
-  title: string;
-  subtitle?: string;
-  className?: string;
-  titleClassName?: string;
-}) {
+}: SectionHeaderProps) {
+  const { tag, path } = hopOf(section);
+
   return (
-    <div className={`flex flex-col gap-4 mb-12 ${className}`}>
-      <SlideUp>
-        <div className="flex items-center gap-4">
-          <h2 className={`text-3xl font-bold text-foreground md:text-4xl lg:text-5xl tracking-tight ${titleClassName}`}>
-            <span className="text-primary">#</span> {title}
-          </h2>
-          <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
-        </div>
-      </SlideUp>
+    <header className={`mb-14 md:mb-20 ${className}`}>
+      <div className="flex flex-col gap-4 border-b border-border pb-6 md:flex-row md:items-end md:justify-between md:gap-10">
+        <h2
+          className={`font-display text-[clamp(1.85rem,7vw,5.5rem)] text-foreground ${titleClassName}`}
+        >
+          <ScrambleText text={title} />
+        </h2>
+        <p className="label-mono flex shrink-0 items-center gap-3 text-muted-foreground md:pb-2">
+          <ScrambleText text={tag} />
+          <ScrambleText text={path} className="text-foreground" />
+        </p>
+      </div>
       {subtitle && (
-        <SlideUp delay={0.1}>
-          <p className="text-lg text-muted-foreground max-w-2xl">
+        <SlideUp delay={0.15} className="mt-6 md:ml-[40%]">
+          <p className="max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
             {subtitle}
           </p>
         </SlideUp>
       )}
-    </div>
+    </header>
   );
 }

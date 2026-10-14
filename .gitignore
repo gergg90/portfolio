@@ -44,8 +44,11 @@ next-env.d.ts
 
 # AI/agent tools and configs
 .agents/
+.claude/
+.impeccable/
 AGENTS.md
 CLAUDE.md
+TODO.md
 skills-lock.json
 
 # Testing tools output

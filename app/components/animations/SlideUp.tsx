@@ -16,7 +16,7 @@ export default function SlideUp({
   delay = 0,
   duration = 0.8,
   className = "",
-  distance = 40,
+  distance = 24,
 }: SlideUpProps) {
   return (
     <motion.div
@@ -26,7 +26,7 @@ export default function SlideUp({
       transition={{
         duration,
         delay,
-        ease: [0.165, 0.84, 0.44, 1],
+        ease: [0.16, 1, 0.3, 1],
       }}
       className={className}
     >

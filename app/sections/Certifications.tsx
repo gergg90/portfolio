@@ -2,13 +2,11 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { ArrowUpRight, Maximize2 } from "lucide-react";
 import SectionWrapper from "../components/SectionWrapper";
 import SectionHeader from "../components/SectionHeader";
-import { Badge } from "@/components/ui/badge";
-import { Award, Calendar, ExternalLink } from "lucide-react";
-import { StaggerContainer, StaggerItem } from "../components/animations";
+import { SlideUp, StaggerContainer, StaggerItem } from "../components/animations";
 import ImageModal from "../components/ImageModal";
-import { motion } from "framer-motion";
 
 const certifications = [
   {
@@ -89,145 +87,91 @@ const diplomas = [
 export default function Certifications() {
   const [selectedImage, setSelectedImage] = useState<{ src: string; title: string } | null>(null);
 
-  const handleDiplomaClick = (image: string, title: string) => {
-    setSelectedImage({ src: image, title });
-  };
-
   return (
-    <SectionWrapper id="certificaciones" className="bg-secondary/30">
-      <div className="flex flex-col gap-8">
-        {/* Certificaciones Cisco con Credly */}
-        <div>
-          <SectionHeader 
-            title="Certificaciones" 
-            subtitle="Certificaciones profesionales de Cisco Networking Academy verificadas en Credly."
-          />
+    <SectionWrapper id="certificaciones">
+      <SectionHeader
+        title="Certificaciones"
+        section="certificaciones"
+        subtitle="Siete certificaciones de Cisco Networking Academy, todas verificables en Credly."
+      />
 
-          <StaggerContainer className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4" staggerDelay={0.1}>
-            {certifications.map((cert) => (
-              <StaggerItem key={cert.name}>
-                <a
-                  href={cert.credlyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Ver certificación ${cert.name} en Credly`}
-                  className="group block flex flex-col gap-3 rounded-xl border border-border/50 bg-card/50 p-6 backdrop-blur-sm card-hover relative overflow-hidden"
+      {/* Cisco: tabla editorial */}
+      <div className="label-mono hidden grid-cols-[4rem_minmax(0,1fr)_14rem_6rem] gap-6 pb-3 text-muted-foreground md:grid">
+        <span>Año</span>
+        <span>Certificación</span>
+        <span>Emisor</span>
+        <span className="text-right">Verificar</span>
+      </div>
+      <StaggerContainer className="border-b border-border" staggerDelay={0.05}>
+        {certifications.map((cert) => (
+          <StaggerItem key={cert.name}>
+            <a
+              href={cert.credlyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Ver la certificación ${cert.name} en Credly`}
+              className="row-link group grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-6 gap-y-1 py-5 md:grid-cols-[4rem_minmax(0,1fr)_14rem_6rem] md:py-6"
+            >
+              <span className="label-mono order-2 col-span-2 text-cisco md:order-none md:col-span-1">
+                {cert.date} · {cert.status}
+              </span>
+              <span className="text-lg font-medium leading-snug text-foreground md:text-xl">
+                {cert.name}
+              </span>
+              <span className="hidden text-sm text-muted-foreground md:block">{cert.issuer}</span>
+              <span className="label-mono flex items-center justify-end gap-1 text-muted-foreground">
+                <span className="hidden md:inline">credly</span>
+                <ArrowUpRight className="row-arrow size-4" strokeWidth={1.5} aria-hidden />
+              </span>
+            </a>
+          </StaggerItem>
+        ))}
+      </StaggerContainer>
+
+      {/* Hack4u: tira de diplomas */}
+      <div className="mt-24 md:mt-32">
+        <SlideUp className="mb-8 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+          <h3 className="font-display text-[clamp(1.6rem,3.4vw,2.5rem)] text-foreground">
+            Diplomas Hack4u
+          </h3>
+          <p className="text-muted-foreground">Academia Hack4u de Marcelo Vázquez (S4vitar).</p>
+        </SlideUp>
+
+        <ul className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:-mx-6 sm:px-6 md:mx-0 md:grid md:grid-cols-4 md:gap-6 md:overflow-visible md:px-0">
+          {diplomas.map((diploma, index) => (
+            <li key={diploma.filename} className="w-[78%] shrink-0 snap-start sm:w-[45%] md:w-auto">
+              <SlideUp delay={index * 0.08}>
+                <button
+                  type="button"
+                  onClick={() => setSelectedImage({ src: diploma.image, title: diploma.title })}
+                  aria-label={`Ver el diploma de ${diploma.title} a tamaño completo`}
+                  className="group block w-full text-left"
                 >
-                  {/* Badge visual Cisco */}
-                  <div className="absolute top-3 right-3">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#049fd9]/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#049fd9]">
-                      CISCO
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-card">
+                    <Image
+                      src={diploma.image}
+                      alt={`Diploma de ${diploma.title}, Academia Hack4u`}
+                      fill
+                      sizes="(max-width: 640px) 78vw, (max-width: 768px) 45vw, 25vw"
+                      className="object-cover grayscale-[35%] transition duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04] group-hover:grayscale-0"
+                    />
+                    <span className="absolute right-3 top-3 flex size-8 items-center justify-center rounded-full bg-background/80 text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+                      <Maximize2 className="size-3.5" strokeWidth={1.5} aria-hidden />
                     </span>
                   </div>
-                  
-                  <div className="flex items-center gap-3">
-                    <div className="flex size-12 items-center justify-center rounded-xl bg-[#049fd9]/10 text-[#049fd9] transition-all duration-300 group-hover:bg-[#049fd9]/20 group-hover:scale-110">
-                      <Award className="size-6" />
-                    </div>
-                    <div className="flex flex-col pr-12">
-                      <h3 className="font-semibold text-foreground text-sm leading-tight">
-                        {cert.name}
-                      </h3>
-                      <span className="text-sm text-muted-foreground">
-                        {cert.issuer}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between pt-3 border-t border-border/50">
-                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                      <Calendar className="size-3.5" />
-                      <span>{cert.date}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <Badge
-                        variant="outline"
-                        className="bg-[#049fd9]/20 text-[#049fd9] border-[#049fd9]/30 text-xs"
-                      >
-                        {cert.status}
-                      </Badge>
-                      <ExternalLink className="size-3 text-muted-foreground group-hover:text-[#049fd9] transition-colors" />
-                    </div>
-                  </div>
-                </a>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-
-        {/* Diplomas de la Academia Hack4u */}
-        <div>
-          <SectionHeader 
-            title="Diplomas" 
-            subtitle="Diplomas obtenidos en la Academia Hack4u de Marcelo Vázquez (S4vitar)."
-          />
-
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {diplomas.map((diploma, index) => (
-              <motion.div
-                key={diploma.filename}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative rounded-xl border border-border/50 bg-card/50 overflow-hidden backdrop-blur-sm card-hover cursor-pointer"
-                onClick={() => handleDiplomaClick(diploma.image, diploma.title)}
-                role="button"
-                tabIndex={0}
-                aria-label={`Ver diploma de ${diploma.title} en tamaño completo`}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    handleDiplomaClick(diploma.image, diploma.title);
-                  }
-                }}
-              >
-                {/* Imagen del diploma */}
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image
-                    src={diploma.image}
-                    alt={`Diploma de ${diploma.title} - Academia Hack4u`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  {/* Overlay al hover */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center gap-2">
-                      <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/20 backdrop-blur-sm">
-                        <svg className="size-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                        </svg>
-                      </div>
-                      <span className="text-sm font-medium text-white">Ver diploma</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Info del diploma */}
-                <div className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex flex-col">
-                      <h3 className="font-semibold text-foreground text-sm">
-                        {diploma.title}
-                      </h3>
-                      <span className="text-xs text-muted-foreground">
-                        Academia Hack4u
-                      </span>
-                    </div>
-                    {/* Badge HACK4U */}
-                    <span className="inline-flex items-center rounded-full bg-destructive/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-destructive">
-                      HACK4U
+                  <div className="mt-3 flex items-baseline justify-between gap-3 border-t border-border pt-3">
+                    <span className="font-medium text-foreground">{diploma.title}</span>
+                    <span className="label-mono text-muted-foreground">
+                      {String(index + 1).padStart(2, "0")}
                     </span>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+                </button>
+              </SlideUp>
+            </li>
+          ))}
+        </ul>
       </div>
 
-      {/* Modal/Lightbox */}
       <ImageModal
         isOpen={!!selectedImage}
         onClose={() => setSelectedImage(null)}

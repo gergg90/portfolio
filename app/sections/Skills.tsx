@@ -2,27 +2,36 @@
 
 import SectionWrapper from "../components/SectionWrapper";
 import SectionHeader from "../components/SectionHeader";
-import { Badge } from "@/components/ui/badge";
 import { StaggerContainer, StaggerItem } from "../components/animations";
 
+// Orden: del cable a la aplicación. Redes primero, que es el foco actual.
 const skills = [
   {
-    category: "Herramientas Ofensivas",
+    category: "Redes & Protocolos",
     items: [
-      "Metasploit Framework",
-      "Burp Suite",
-      "Nmap",
-      "Hydra",
-      "Wireshark",
-      "Ghidra",
-      "Searchsploit",
-      "ffuf",
-      "Gobuster",
-      "Wfuzz",
+      "TCP/IP",
+      "Cisco IOS",
+      "OSPF",
+      "EIGRP",
+      "BGP",
+      "RIP",
+      "DNS",
+      "DHCP",
+      "SNMP",
+      "HTTP/HTTPS",
+      "FTP/SFTP",
+      "SMTP",
     ],
   },
   {
-    category: "Técnicas de Pentesting",
+    category: "Seguridad Defensiva / SIEM",
+    items: [
+      "Wazuh (monitorización de logs, detección de tráfico)",
+      "Caldera (simulación de ataques ATT&CK)",
+    ],
+  },
+  {
+    category: "Técnicas Ofensivas",
     items: [
       "Reconocimiento pasivo/activo",
       "OSINT",
@@ -42,44 +51,36 @@ const skills = [
     ],
   },
   {
-    category: "Scripting & Automatización",
+    category: "Herramientas",
     items: [
-      "Python (ofensivo)",
+      "Nmap",
+      "Wireshark",
+      "Burp Suite",
+      "Metasploit Framework",
+      "Hydra",
+      "Ghidra",
+      "Searchsploit",
+      "ffuf",
+      "Gobuster",
+      "Wfuzz",
+    ],
+  },
+  {
+    category: "Scripting & IA",
+    items: [
+      "Python",
       "Bash scripting",
       "Automatización de recolección de información",
-    ],
-  },
-  {
-    category: "Redes & Protocolos",
-    items: [
-      "TCP/IP",
-      "HTTP/HTTPS",
-      "FTP/SFTP",
-      "SMTP",
-      "DNS",
-      "DHCP",
-      "SNMP",
-      "BGP",
-      "OSPF",
-      "EIGRP",
-      "RIP",
-      "Cisco IOS",
-    ],
-  },
-  {
-    category: "Seguridad Defensiva / SIEM",
-    items: [
-      "Wazuh (monitorización de logs, detección de tráfico)",
-      "Caldera (simulación de ataques ATT&CK;)",
+      "Desarrollo con agentes (Claude Code)",
     ],
   },
   {
     category: "Sistemas Operativos",
     items: [
+      "GNU/Linux (administración, contenedores Docker)",
+      "Arch Linux",
       "Parrot Security OS",
       "Kali Linux",
-      "Arch Linux",
-      "GNU/Linux (administración, contenedores Docker)",
     ],
   },
 ];
@@ -87,38 +88,30 @@ const skills = [
 export default function Skills() {
   return (
     <SectionWrapper id="habilidades">
-      <div className="flex flex-col gap-6">
-        <SectionHeader
-          title="Habilidades"
-          subtitle="Habilidades técnicas y herramientas que domino en el área de ciberseguridad ofensiva y defensiva."
-        />
+      <SectionHeader
+        title="Habilidades"
+        section="habilidades"
+        subtitle="Del cable a la aplicación: lo que uso para entender, defender y probar una red."
+      />
 
-        <StaggerContainer
-          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-          staggerDelay={0.08}
-        >
-          {skills.map((group) => (
-            <StaggerItem key={group.category}>
-              <div className="group rounded-xl border border-border/50 bg-card/50 p-6 backdrop-blur-sm card-hover">
-                <h3 className="mb-4 font-mono text-sm font-semibold uppercase tracking-wider text-primary">
-                  {group.category}
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {group.items.map((skill) => (
-                    <Badge
-                      key={skill}
-                      variant="secondary"
-                      className="bg-muted/50 text-muted-foreground transition-colors duration-300 hover:bg-primary/20 hover:text-primary"
-                    >
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
-      </div>
+      <StaggerContainer className="border-b border-border" staggerDelay={0.06}>
+        {skills.map((group) => (
+          <StaggerItem key={group.category}>
+            <div className="row-link grid gap-4 py-8 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-10 md:py-10">
+              <h3 className="font-display text-[clamp(1.5rem,3vw,2.25rem)] leading-none text-foreground">
+                {group.category}
+              </h3>
+              <ul className="flex flex-wrap gap-x-5 gap-y-2 md:pt-1">
+                {group.items.map((skill) => (
+                  <li key={skill} className="text-muted-foreground">
+                    {skill}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </StaggerItem>
+        ))}
+      </StaggerContainer>
     </SectionWrapper>
   );
 }
