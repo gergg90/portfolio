@@ -76,10 +76,11 @@ La página principal renderiza las siguientes secciones en orden:
 1. **Hero** — `#inicio`
 2. **Sobre Mí** — `#sobre-mi`
 3. **Habilidades** — `#habilidades`
-4. **Certificaciones** — `#certificaciones`
-5. **Roadmap CCNA** — `#roadmap-ccna`
-6. **Writeups** — `#writeups`
-7. **Contacto** — `#contacto`
+4. **Formación** — `#formacion`
+5. **Certificaciones** — `#certificaciones`
+6. **Roadmap CCNA** — `#roadmap-ccna`
+7. **Writeups** — `#writeups`
+8. **Contacto** — `#contacto`
 
 Cada sección utiliza `SectionWrapper` y `SectionHeader` para mantener consistencia de espaciado y tipografía.
 
@@ -126,6 +127,7 @@ Cada sección utiliza `SectionWrapper` y `SectionHeader` para mantener consisten
 - Frase display a tamaño grande: "Germain Gutierrez es analista de ciberseguridad que" + palabra rotativa en morado: "conecta redes / asegura sistemas / construye con IA".
 - Fila de estado en mono: `● estudiando CCNA 200-301`, con accesos a `/ccna/`, `/cv/` (descarga) y `/contacto/`.
 - Indicación "desplázate despacio" con línea animada.
+- Arranque traceroute: un bloque mono sobre el titular teclea `traceroute germain.gutierrez` con cuatro saltos. Se muestra una vez por sesión (`sessionStorage`) y con reduced-motion aparece completo.
 
 ### 8.2 Sobre Mí (`#sobre-mi`)
 - Biografía en 3 párrafos.
@@ -145,6 +147,14 @@ Cada sección utiliza `SectionWrapper` y `SectionHeader` para mantener consisten
 - Cada skill es un `Badge` con hover a morado.
 - Badge "Escalada de privilegios" debe mantenerse acortado (no extender con explicaciones).
 
+### 8.3b Formación (`#formacion`)
+- Ingeniería en Informática en la Universidad Alejandro de Humboldt. Pensum oficial de 10 semestres.
+- Traza de semestres `S01`…`S10`. El semestre en curso (S01) se marca con "en curso"; los completados irán en verde señal.
+- Las 8 materias del semestre en curso, tal como aparecen en el pensum.
+- Bloque "más adelante en la carrera" con 6 materias afines a redes y seguridad (Sistemas Operativos I y II, Redes I y II, Auditoría de Sistemas y Teleprocesos).
+- Enlace al pensum oficial.
+- Datos en `lib/formacion.ts`: `CURRENT_SEMESTER`, `completedSemesters`, `currentSubjects`, `upcomingHighlights`.
+
 ### 8.4 Certificaciones (`#certificaciones`)
 #### Certificaciones Cisco
 - 7 certificaciones obtenidas en 2024, enlazadas a Credly.
@@ -158,15 +168,16 @@ Cada sección utiliza `SectionWrapper` y `SectionHeader` para mantener consisten
 - Modal a pantalla completa al hacer click.
 
 ### 8.5 Roadmap CCNA (`#roadmap-ccna`)
-- Ruta vertical por los seis dominios del blueprint CCNA 200-301 v1.1, con su peso en %. Los datos están en `lib/roadmaps/ccna.ts` y son provisionales hasta sustituirlos por la ruta de Hermes AI.
-- Barra de progreso global en verde señal.
+- Ruta vertical por los seis dominios del blueprint CCNA 200-301 v1.1, con su peso en % y sus 33 módulos de estudio.
+- Los módulos son una base provisional en `lib/roadmaps/ccna.ts`, hasta sustituirlos por la ruta de Hermes AI.
+- Barra de progreso global en verde señal, contada en módulos.
 - Traza de color Cisco que se dibuja con el scroll.
-- Estados por dominio: completado (check verde), en curso (nodo azul Cisco) y pendiente.
+- Estados por módulo y por dominio: completado (check verde), en curso (azul Cisco, el primer módulo pendiente) y pendiente.
 - Examen final CCNA 200-301 al final de la ruta, con estado aprobado o pendiente.
 - Componente genérico `app/components/Roadmap.tsx`, reutilizable para otras rutas.
 
 #### Configuración editable
-- `COMPLETED_MODULE_IDS` en `lib/roadmaps/ccna.ts`: IDs de dominios completados.
+- `COMPLETED_MODULE_IDS` en `lib/roadmaps/ccna.ts`: IDs de módulos completados, p. ej. `"1.1"`.
 - `BOSS_COMPLETED` en `lib/roadmaps/ccna.ts`: boolean para el examen final.
 
 ### 8.6 Writeups (`#writeups`)
@@ -188,7 +199,8 @@ Cada sección utiliza `SectionWrapper` y `SectionHeader` para mantener consisten
 - **Navbar:** detecta sección activa al scroll; transición suave del indicador con `layoutId`.
 - **Hero:** escala del avatar, slide-up secuencial de textos y botones.
 - **Roadmap:** la traza se dibuja con el scroll y cada dominio aparece al entrar en pantalla.
-- **Hover:** elevación de cards, badges a color primario, iconos Cisco a escala.
+- **Descifrado:** títulos de sección, hop del navbar y estados del roadmap se descifran al entrar en pantalla. Cada carácter reserva su ancho, así que no hay saltos de layout.
+- **Hover:** cambios de color en filas y enlaces, y la línea de la fila se vuelve morada.
 
 ---
 
@@ -263,6 +275,7 @@ Cada sección utiliza `SectionWrapper` y `SectionHeader` para mantener consisten
 
 | Fecha | Cambio | Archivos afectados |
 |-------|--------|---------------------|
+| 2026-10-13 | Sección Formación (Ingeniería en Informática, UAH, semestre 01) con traza de semestres y pensum. Roadmap CCNA por 33 módulos. Efectos de descifrado y arranque traceroute. Ruta única de hops en `lib/traza.ts`. | `app/sections/Formacion.tsx`, `lib/formacion.ts`, `lib/traza.ts`, `lib/roadmaps/ccna.ts`, `app/components/Roadmap.tsx`, `app/components/animations/ScrambleText.tsx`, `app/components/TracerouteBoot.tsx`, `app/components/Navbar.tsx`, `app/components/SectionHeader.tsx` |
 | 2026-10-13 | Rediseño editorial-terminal (negro cálido, Archivo + DM Mono, sin cards ni lluvia Matrix) y hero de perfil híbrido redes + seguridad + IA. | `app/globals.css`, `app/layout.tsx`, `app/sections/Hero.tsx`, `app/sections/About.tsx`, `app/sections/Skills.tsx`, `app/sections/Certifications.tsx`, `app/components/Navbar.tsx`, `app/components/animations/`, `DESIGN.md`, `PRODUCT.md` |
 | 2026-10-13 | Roadmap migrado de CPTS a CCNA 200-301: ruta por dominios del blueprint v1.1, sección `#roadmap-ccna`, popover con nueva key y SEO sin CPTS, OSCP ni eJPT. Retirados `CptsRoadmap`, `CptsPodium`, `HackerBackground` y sus assets. | `lib/roadmaps/ccna.ts`, `app/components/Roadmap.tsx`, `app/sections/RoadmapCCNA.tsx`, `app/components/AnnouncementPopover.tsx`, `app/layout.tsx`, `public/manifest.json` |
 | 2026-07-03 | Eliminado conteo total de máquinas en Sobre Mí. | `app/sections/About.tsx` |

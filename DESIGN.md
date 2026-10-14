@@ -49,6 +49,8 @@ Un gesto principal y el resto en silencio:
 3. **Revelado por palabra:** titulares de sección y manifiesto de About.
 4. **Opacidad ligada al scroll:** el párrafo de About se "enciende" palabra a palabra.
 5. **Roadmap:** la traza azul Cisco se dibuja con el scroll.
+6. **Descifrado:** los títulos, el hop del navbar y los estados se descifran al entrar en pantalla. Cada carácter reserva su ancho, así que el layout no salta.
+7. **Arranque traceroute:** en la primera carga de cada sesión, el Hero teclea una traza de red de cuatro saltos. Es decoración, no datos reales.
 
 Curva de easing: `cubic-bezier(0.16, 1, 0.3, 1)`. Todo el movimiento se desactiva con `prefers-reduced-motion` (`MotionProvider`).
 
@@ -56,7 +58,10 @@ Curva de easing: `cubic-bezier(0.16, 1, 0.3, 1)`. Todo el movimiento se desactiv
 
 - `SectionHeader`: titular display, ruta mono con hop y subtítulo opcional.
 - `Navbar`: nombre en mono a la izquierda, rutas de sección a la derecha y menú a pantalla completa en móvil.
-- `Roadmap`: ruta vertical por dominios con estados completado, en curso y pendiente.
+- `Roadmap`: ruta vertical por dominios y módulos, con estados completado, en curso y pendiente.
+- `Formacion`: traza de 10 semestres y materias del semestre en curso.
+- `ScrambleText`: texto que se descifra al entrar en pantalla.
+- `TracerouteBoot`: traza de red que se teclea en el Hero.
 - `AnnouncementPopover`: caja de borde fino sobre `--card`, sin sombra.
 - `ImageModal`: lightbox de diplomas, sin cambios de estructura.
 

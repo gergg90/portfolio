@@ -46,6 +46,7 @@ No es otro portfolio de pentester. Combina tres ejes que rara vez van juntos en 
 
 - 7 certificaciones Cisco NetAcad con badge en Credly (URLs en `app/sections/Certifications.tsx`), incluida *CCNA: Switching, Routing, and Wireless Essentials*.
 - 4 diplomas de la Academia Hack4u en `public/certificados/*.webp`.
+- Matrícula en Ingeniería en Informática, Universidad Alejandro de Humboldt, primer semestre. Pensum oficial de 10 semestres en unihumboldt.edu.ve.
 - CV en `public/docs/CV.pdf`.
 - **No existen:** foto real (pendiente para la Fase 4), og-image ni favicons PNG, writeups publicados, testimonios ni experiencia laboral cuantificada. No se inventan.
 
