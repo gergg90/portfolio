@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowDown } from "lucide-react";
 import { RotatingWord } from "../components/animations";
+import TracerouteBoot from "../components/TracerouteBoot";
 
 const verbs = ["conecta redes", "asegura sistemas", "construye con IA"];
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -26,6 +27,10 @@ export default function Hero() {
         style={{ y, opacity }}
         className="mx-auto w-full max-w-7xl px-4 pb-10 pt-32 sm:px-6 md:pb-14 lg:px-10"
       >
+        <div className="mb-8 min-h-[6.5rem] md:mb-10">
+          <TracerouteBoot />
+        </div>
+
         <h1 className="font-display text-[clamp(2rem,8.4vw,6rem)] text-foreground">
           {lines.map((line, i) => (
             <span key={line} className="block overflow-hidden pb-[0.06em]">
