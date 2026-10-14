@@ -1,114 +1,88 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { buttonVariants } from "@/components/ui/button";
-import { ChevronDown, Download, FileText, User } from "lucide-react";
-import { cn } from "@/lib/utils";
-import HackerBackground from "../components/HackerBackground";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { ArrowDown } from "lucide-react";
+import { RotatingWord } from "../components/animations";
+
+const verbs = ["conecta redes", "asegura sistemas", "construye con IA"];
+const ease = [0.16, 1, 0.3, 1] as const;
+
+const lines = ["Germain Gutierrez", "es analista de", "ciberseguridad que"];
 
 export default function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
   return (
     <section
+      ref={ref}
       id="inicio"
-      className="relative flex min-h-screen w-full items-center justify-center overflow-hidden"
+      className="relative flex min-h-svh w-full flex-col justify-end overflow-hidden"
     >
-      {/* Fondo Hacker */}
-      <HackerBackground />
-      
-      {/* Overlay para mejorar legibilidad */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-background/80 z-[1]" />
-      
-      {/* Grid sutil */}
-      <div className="absolute inset-0 matrix-bg opacity-30 z-[2]" />
-
-      <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center px-6 text-center">
-        {/* Avatar */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.165, 0.84, 0.44, 1] }}
-          className="mb-8"
-        >
-          <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-2 border-primary/50 avatar-glow">
-            <div className="w-full h-full bg-card flex items-center justify-center">
-              <User className="size-16 md:size-20 text-primary/40" />
-            </div>
-            {/* Scan line effect */}
-            <div className="absolute inset-0 scan-line pointer-events-none" />
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3, ease: [0.165, 0.84, 0.44, 1] }}
-          className="mb-6 font-mono text-sm text-primary/80 uppercase tracking-widest"
-        >
-          [ inicializando conexión segura... ]
-        </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5, ease: [0.165, 0.84, 0.44, 1] }}
-          className="text-4xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl"
-        >
-          <span className="text-purple-glow">Germain Gutierrez</span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7, ease: [0.165, 0.84, 0.44, 1] }}
-          className="mt-4 max-w-2xl text-lg text-muted-foreground md:text-xl"
-        >
-          Analista de Ciberseguridad | Pentester | CTF Player
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.9, ease: [0.165, 0.84, 0.44, 1] }}
-          className="mt-10 flex flex-col gap-4 sm:flex-row"
-        >
-          <motion.a
-            href="#writeups"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={cn(
-              buttonVariants({ size: "lg" }),
-              "bg-primary text-primary-foreground hover:bg-primary/90 font-mono gap-2 border-glow rounded-full px-8"
-            )}
-          >
-            <FileText className="size-4" />
-            Ver Writeups
-          </motion.a>
-          <motion.a
-            href="/docs/CV.pdf"
-            download
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={cn(
-              buttonVariants({ size: "lg", variant: "outline" }),
-              "border-primary/50 text-primary hover:bg-primary/10 font-mono gap-2 rounded-full px-8"
-            )}
-          >
-            <Download className="size-4" />
-            Descargar CV
-          </motion.a>
-        </motion.div>
-      </div>
-
-      <motion.a
-        href="#sobre-mi"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.3, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-muted-foreground hover:text-primary transition-colors"
-        aria-label="Desplazarse a la sección Sobre Mí"
+      <motion.div
+        style={{ y, opacity }}
+        className="mx-auto w-full max-w-7xl px-4 pb-10 pt-32 sm:px-6 md:pb-14 lg:px-10"
       >
-        <ChevronDown className="size-8 animate-bounce" />
-      </motion.a>
+        <h1 className="font-display text-[clamp(2rem,8.4vw,6rem)] text-foreground">
+          {lines.map((line, i) => (
+            <span key={line} className="block overflow-hidden pb-[0.06em]">
+              <motion.span
+                className="block"
+                initial={{ y: "105%" }}
+                animate={{ y: "0%" }}
+                transition={{ duration: 1.1, delay: 0.25 + i * 0.1, ease }}
+              >
+                {line}
+              </motion.span>
+            </span>
+          ))}
+          <span className="block overflow-hidden pb-[0.06em]">
+            <motion.span
+              className="block text-primary-ink"
+              initial={{ y: "105%" }}
+              animate={{ y: "0%" }}
+              transition={{ duration: 1.1, delay: 0.55, ease }}
+            >
+              <RotatingWord words={verbs} />.
+            </motion.span>
+          </span>
+        </h1>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.1 }}
+          className="mt-12 grid gap-6 border-t border-border pt-6 md:mt-16 md:grid-cols-[1fr_auto_auto] md:items-center md:gap-12"
+        >
+          <p className="label-mono flex items-center gap-3 text-foreground">
+            <span className="live-dot" aria-hidden />
+            estudiando CCNA 200-301
+          </p>
+          <nav aria-label="Accesos rápidos" className="flex flex-wrap gap-x-8 gap-y-3">
+            <a href="#roadmap-ccna" className="label-mono link-draw text-foreground">
+              /ccna/
+            </a>
+            <a href="/docs/CV.pdf" download className="label-mono link-draw inline-flex items-center gap-1.5 text-foreground">
+              /cv/ <ArrowDown className="size-3" strokeWidth={1.5} aria-hidden />
+            </a>
+            <a href="#contacto" className="label-mono link-draw text-foreground">
+              /contacto/
+            </a>
+          </nav>
+          <a
+            href="#sobre-mi"
+            className="label-mono group hidden items-center gap-3 text-muted-foreground transition-colors hover:text-foreground md:flex"
+          >
+            desplázate despacio
+            <span className="relative block h-8 w-px overflow-hidden bg-border" aria-hidden>
+              <span className="absolute inset-x-0 top-0 h-1/2 animate-[scroll-cue_2s_ease-in-out_infinite] bg-foreground motion-reduce:animate-none" />
+            </span>
+          </a>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

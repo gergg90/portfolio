@@ -1,11 +1,11 @@
 {
-  "name": "Germain Gutierrez | Ciberseguridad",
+  "name": "Germain Gutierrez | Redes, Ciberseguridad e IA",
   "short_name": "Germain Gutierrez",
-  "description": "Portfolio profesional de ciberseguridad, pentesting y CTF",
+  "description": "Portfolio de redes, ciberseguridad e IA",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#9D4EDD",
+  "background_color": "#0a0907",
+  "theme_color": "#0a0907",
   "orientation": "portrait-primary",
   "icons": [
     {

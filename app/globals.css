@@ -7,9 +7,12 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-sans: var(--font-archivo);
+  --font-mono: var(--font-dm-mono);
+  --font-heading: var(--font-archivo);
+  --color-cisco: var(--cisco);
+  --color-signal: var(--signal);
+  --color-bone: var(--foreground);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -46,208 +49,248 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/*
+ * Mundo editorial-terminal: negro cálido, texto hueso y líneas finas.
+ * Morado = marca · azul Cisco = CCNA/Cisco · verde señal = progreso y estado vivo.
+ */
 :root {
-  --background: #000000;
-  --foreground: #e6edf3;
-  --card: #161b22;
-  --card-foreground: #e6edf3;
-  --popover: #161b22;
-  --popover-foreground: #e6edf3;
-  --primary: #9D4EDD;
-  --primary-foreground: #000000;
-  --secondary: #161b22;
-  --secondary-foreground: #e6edf3;
-  --muted: #161b22;
-  --muted-foreground: #8b949e;
-  --accent: #00ffff;
-  --accent-foreground: #000000;
+  --background: #0a0907;
+  --foreground: #ece8e1;
+  --card: #13110e;
+  --card-foreground: #ece8e1;
+  --popover: #13110e;
+  --popover-foreground: #ece8e1;
+  --primary: #9d4edd;
+  --primary-foreground: #0a0907;
+  --primary-ink: #b57ee6;
+  --secondary: #13110e;
+  --secondary-foreground: #ece8e1;
+  --muted: #1a1814;
+  --muted-foreground: #9a948a;
+  --accent: #1a1814;
+  --accent-foreground: #ece8e1;
   --destructive: #ff003c;
-  --border: #30363d;
-  --input: #30363d;
-  --ring: #9D4EDD;
-  --chart-1: #9D4EDD;
-  --chart-2: #00ffff;
-  --chart-3: #ff003c;
-  --chart-4: #8b949e;
-  --chart-5: #e6edf3;
-  --radius: 0.625rem;
-  --sidebar: #000000;
-  --sidebar-foreground: #e6edf3;
-  --sidebar-primary: #9D4EDD;
-  --sidebar-primary-foreground: #000000;
-  --sidebar-accent: #161b22;
-  --sidebar-accent-foreground: #e6edf3;
-  --sidebar-border: #30363d;
-  --sidebar-ring: #9D4EDD;
+  --border: rgb(236 232 225 / 0.12);
+  --input: rgb(236 232 225 / 0.16);
+  --ring: #9d4edd;
+  --cisco: #049fd9;
+  --signal: #00ff41;
+  --chart-1: #9d4edd;
+  --chart-2: #049fd9;
+  --chart-3: #00ff41;
+  --chart-4: #9a948a;
+  --chart-5: #ece8e1;
+  --radius: 0.5rem;
+  --sidebar: #0a0907;
+  --sidebar-foreground: #ece8e1;
+  --sidebar-primary: #9d4edd;
+  --sidebar-primary-foreground: #0a0907;
+  --sidebar-accent: #13110e;
+  --sidebar-accent-foreground: #ece8e1;
+  --sidebar-border: rgb(236 232 225 / 0.12);
+  --sidebar-ring: #9d4edd;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
     @apply font-sans;
-  }
-  html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    color-scheme: dark;
+    scrollbar-color: rgb(236 232 225 / 0.2) var(--background);
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-variation-settings: "wdth" 100;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--primary);
+    color: var(--background);
+  }
+  :focus-visible {
+    outline: 1px solid var(--primary);
+    outline-offset: 4px;
+  }
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 }
 
 @layer utilities {
-  .text-purple-glow {
-    color: #C77DFF;
-    text-shadow:
-      0 0 10px rgba(157, 78, 221, 0.8),
-      0 0 20px rgba(157, 78, 221, 0.5),
-      0 0 40px rgba(157, 78, 221, 0.3);
-    animation: pulse-purple 3s ease-in-out infinite;
+  /* Display expandido y pesado para titulares */
+  .font-display {
+    font-family: var(--font-archivo);
+    font-weight: 800;
+    font-variation-settings: "wdth" 118;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
   }
 
-  @keyframes pulse-purple {
-    0%, 100% {
-      text-shadow:
-        0 0 10px rgba(157, 78, 221, 0.8),
-        0 0 20px rgba(157, 78, 221, 0.5),
-        0 0 40px rgba(157, 78, 221, 0.3);
-    }
-    50% {
-      text-shadow:
-        0 0 20px rgba(157, 78, 221, 1),
-        0 0 40px rgba(157, 78, 221, 0.7),
-        0 0 70px rgba(157, 78, 221, 0.5);
-    }
+  /* Datos: rutas, hops, fechas, porcentajes */
+  .label-mono {
+    font-family: var(--font-dm-mono);
+    font-size: 0.75rem;
+    line-height: 1.4;
+    letter-spacing: 0.12em;
+    font-variant-numeric: tabular-nums;
   }
 
-  .text-glow {
-    text-shadow: 0 0 20px rgba(157, 78, 221, 0.5),
-                 0 0 40px rgba(157, 78, 221, 0.3);
+  .text-primary-ink {
+    color: var(--primary-ink);
   }
 
-  .border-glow {
-    box-shadow: 0 0 20px rgba(157, 78, 221, 0.3),
-                0 0 40px rgba(157, 78, 221, 0.1);
+  /* Fila editorial: línea fina que se vuelve morada en hover */
+  .row-link {
+    position: relative;
+    border-top: 1px solid var(--border);
+    transition: border-color 0.4s var(--ease-out-expo);
+  }
+  .row-link::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s var(--ease-out-expo);
+  }
+  .row-link:hover::before,
+  .row-link:focus-visible::before,
+  .row-link:focus-within::before {
+    transform: scaleX(1);
+  }
+  .row-link .row-arrow {
+    transition: transform 0.4s var(--ease-out-expo), color 0.4s;
+  }
+  .row-link:hover .row-arrow,
+  .row-link:focus-visible .row-arrow {
+    transform: translate(0.25rem, -0.25rem);
+    color: var(--primary-ink);
   }
 
-  .hero-glow {
-    background: radial-gradient(circle at 50% 140%, rgba(157, 78, 221, 0.12) 17%, transparent 55%);
+  /* Subrayado que se dibuja en hover */
+  .link-draw {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.5s var(--ease-out-expo), color 0.3s;
   }
-  
-  .transition-premium {
-    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  .link-draw:hover,
+  .link-draw:focus-visible {
+    background-size: 100% 1px;
   }
-  
-  .card-hover {
-    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-  }
-  
-  .card-hover:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5),
-                0 0 20px rgba(157, 78, 221, 0.2);
-    border-color: rgba(157, 78, 221, 0.4);
-  }
-  
+
   .backdrop-blur-nav {
-    backdrop-filter: blur(1rem);
-    -webkit-backdrop-filter: blur(1rem);
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
   }
-  
-  .glitch-hover:hover {
-    animation: glitch 0.3s ease-in-out;
-  }
-  
-  @keyframes glitch {
-    0%, 100% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(2px, -2px); }
-    60% { transform: translate(-2px, -2px); }
-    80% { transform: translate(2px, 2px); }
-  }
-  
+
   .terminal-cursor::after {
     content: "_";
     animation: blink 1s step-end infinite;
   }
-  
-  @keyframes blink {
-    50% { opacity: 0; }
-  }
-  
-  /* CPTS purple accents */
-  .text-cpts {
-    color: #9D4EDD;
-  }
-  
-  .bg-cpts {
-    background-color: #9D4EDD;
-  }
-  
-  .border-cpts {
-    border-color: #9D4EDD;
-  }
-  
-  .cpts-glow {
-    box-shadow: 0 0 20px rgba(157, 78, 221, 0.4),
-                0 0 40px rgba(157, 78, 221, 0.2);
-  }
-  
-  .text-gradient-cpts {
-    color: #C77DFF;
-    text-shadow:
-      0 0 10px rgba(157, 78, 221, 0.8),
-      0 0 20px rgba(157, 78, 221, 0.5),
-      0 0 40px rgba(157, 78, 221, 0.3);
-    animation: pulse-purple 3s ease-in-out infinite;
-  }
-  
-  .neon-text {
-    color: #00ffff;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5),
-                 0 0 20px rgba(0, 255, 255, 0.3);
-  }
-  
-  .electric-text {
-    color: #C77DFF;
-    text-shadow: 0 0 10px rgba(157, 78, 221, 0.5),
-                 0 0 20px rgba(157, 78, 221, 0.3);
+
+  .caret {
+    display: inline-block;
+    width: 0.08em;
+    height: 0.82em;
+    margin-left: 0.06em;
+    vertical-align: -0.04em;
+    background: var(--primary);
+    animation: blink 1s step-end infinite;
   }
 
-  .avatar-glow {
-    box-shadow: 0 0 20px rgba(157, 78, 221, 0.4),
-                0 0 40px rgba(157, 78, 221, 0.2),
-                0 0 60px rgba(157, 78, 221, 0.1);
+  .live-dot {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: var(--signal);
+    box-shadow: 0 0 0 0 rgb(0 255 65 / 0.5);
+    animation: live-ping 2.4s var(--ease-out-expo) infinite;
   }
-  
-  .scan-line {
-    position: relative;
+
+  @keyframes scroll-cue {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(200%);
+    }
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes live-ping {
+    0% {
+      box-shadow: 0 0 0 0 rgb(0 255 65 / 0.45);
+    }
+    70%,
+    100% {
+      box-shadow: 0 0 0 0.6rem rgb(0 255 65 / 0);
+    }
+  }
+
+  /* Marquee CSS puro */
+  .marquee {
+    display: flex;
     overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   }
-  
-  .scan-line::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.8), transparent);
-    animation: scan 3s linear infinite;
+  .marquee-track {
+    display: flex;
+    flex-shrink: 0;
+    min-width: 100%;
+    animation: marquee var(--marquee-duration, 40s) linear infinite;
   }
-  
-  @keyframes scan {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(200px); }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
   }
-  
-  .matrix-bg {
-    background-image:
-      linear-gradient(rgba(157, 78, 221, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(157, 78, 221, 0.04) 1px, transparent 1px);
-    background-size: 40px 40px;
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .caret,
+    .terminal-cursor::after,
+    .live-dot,
+    .marquee-track {
+      animation: none;
+    }
   }
 }
